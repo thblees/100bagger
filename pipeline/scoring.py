@@ -86,3 +86,37 @@ def turnaround_score(eps_2y_ago: float, current_eps: float, accel_score: int) ->
     if eps_2y_ago <= 0 and current_eps > 0 and accel_score >= 20:
         return 10
     return 0
+
+
+def score_company(f: dict) -> dict:
+    """
+    Compute all 5 score components plus total for one company.
+
+    Input `f` must contain:
+      yoy_eps_growth_rates, price, ttm_eps, mrq_eps, market_cap_usd,
+      avg_yoy_revenue_growth, eps_2y_ago, current_eps
+
+    Returns a dict with the 5 component scores and total_score.
+    """
+    accel = eps_acceleration_score(f["yoy_eps_growth_rates"])
+    peg = peg_score(
+        price=f["price"],
+        ttm_eps=f["ttm_eps"],
+        mrq_eps=f["mrq_eps"],
+        g_0=f["yoy_eps_growth_rates"][3],
+    )
+    mcap = market_cap_score(f["market_cap_usd"])
+    rev = revenue_score(f["avg_yoy_revenue_growth"])
+    turn = turnaround_score(
+        eps_2y_ago=f["eps_2y_ago"],
+        current_eps=f["current_eps"],
+        accel_score=accel,
+    )
+    return {
+        "eps_accel_score": accel,
+        "peg_score": peg,
+        "mcap_score": mcap,
+        "revenue_score": rev,
+        "turnaround_score": turn,
+        "total_score": accel + peg + mcap + rev + turn,
+    }

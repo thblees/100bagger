@@ -124,3 +124,26 @@ def test_turnaround_requires_current_profit():
 
 def test_turnaround_requires_accel_score():
     assert turnaround_score(eps_2y_ago=-0.10, current_eps=0.05, accel_score=18) == 0
+
+
+from scoring import score_company
+
+
+def test_score_company_aggregates_all():
+    fundamentals = {
+        "yoy_eps_growth_rates": [0.05, 0.15, 0.30, 0.50],  # perfect ladder => 35
+        "price": 10.0,
+        "ttm_eps": 1.0,
+        "mrq_eps": 0.30,  # g_0 = 0.50 => PEG=0.2 => 25
+        "market_cap_usd": 80_000_000,  # => 15
+        "avg_yoy_revenue_growth": 0.35,  # => 15
+        "eps_2y_ago": -0.10,
+        "current_eps": 0.30,  # turnaround active => 10
+    }
+    result = score_company(fundamentals)
+    assert result["total_score"] == 100
+    assert result["eps_accel_score"] == 35
+    assert result["peg_score"] == 25
+    assert result["mcap_score"] == 15
+    assert result["revenue_score"] == 15
+    assert result["turnaround_score"] == 10
