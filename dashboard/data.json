@@ -1,0 +1,47 @@
+{
+  "generated_at": "2026-04-21",
+  "universe_size": 3247,
+  "passed_hard_filter": 412,
+  "top_results": [
+    {
+      "ticker": "XYZ",
+      "name": "Example Corp",
+      "sector": "Technology",
+      "exchange": "NASDAQ",
+      "market_cap_usd": 187500000,
+      "price": 12.50,
+      "ttm_eps": 0.42,
+      "mrq_eps": 0.14,
+      "avg_daily_volume_usd": 1240000,
+      "ttm_pe": 29.8,
+      "yoy_eps_growth_rates": [0.05, 0.18, 0.34, 0.61],
+      "avg_yoy_revenue_growth": 0.27,
+      "eps_accel_score": 35,
+      "peg_score": 25,
+      "mcap_score": 10,
+      "revenue_score": 8,
+      "turnaround_score": 0,
+      "total_score": 78
+    },
+    {
+      "ticker": "ABC",
+      "name": "Another Example",
+      "sector": "Industrials",
+      "exchange": "NYSE",
+      "market_cap_usd": 350000000,
+      "price": 25.0,
+      "ttm_eps": 1.50,
+      "mrq_eps": 0.45,
+      "avg_daily_volume_usd": 800000,
+      "ttm_pe": 16.7,
+      "yoy_eps_growth_rates": [0.40, 0.30, 0.25, 0.20],
+      "avg_yoy_revenue_growth": 0.12,
+      "eps_accel_score": 0,
+      "peg_score": 15,
+      "mcap_score": 5,
+      "revenue_score": 3,
+      "turnaround_score": 0,
+      "total_score": 23
+    }
+  ]
+}

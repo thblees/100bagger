@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>100-Bagger Screener</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-900">
+  <div class="max-w-7xl mx-auto p-6">
+    <header class="mb-6 flex justify-between items-start">
+      <div>
+        <h1 class="text-3xl font-bold">100-Bagger Screener</h1>
+        <p class="text-sm text-slate-600 mt-1" id="meta">Lade...</p>
+      </div>
+      <button id="explainer-btn"
+        class="bg-slate-800 text-white px-4 py-2 rounded-md text-sm hover:bg-slate-700">
+        Wie funktioniert der Screener?
+      </button>
+    </header>
+
+    <div id="error-banner" class="hidden bg-red-100 border border-red-300 text-red-800 p-4 rounded mb-4"></div>
+
+    <div class="bg-white rounded-lg shadow p-4 mb-4 grid grid-cols-1 md:grid-cols-4 gap-3">
+      <div>
+        <label class="block text-xs text-slate-600 mb-1">Suche (Ticker/Name)</label>
+        <input type="text" id="filter-search" class="w-full border border-slate-300 rounded px-2 py-1 text-sm" placeholder="z.B. MED" />
+      </div>
+      <div>
+        <label class="block text-xs text-slate-600 mb-1">Sektor</label>
+        <select id="filter-sector" class="w-full border border-slate-300 rounded px-2 py-1 text-sm">
+          <option value="">Alle</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-xs text-slate-600 mb-1">Min. Score: <span id="score-val">0</span></label>
+        <input type="range" id="filter-score" min="0" max="100" value="0" class="w-full" />
+      </div>
+      <div>
+        <label class="block text-xs text-slate-600 mb-1">Max. Market Cap (Mio $): <span id="mcap-val">500</span></label>
+        <input type="range" id="filter-mcap" min="0" max="500" value="500" class="w-full" />
+      </div>
+    </div>
+
+    <div class="overflow-x-auto bg-white rounded-lg shadow">
+      <table class="min-w-full text-sm" id="results-table">
+        <thead class="bg-slate-100 text-left text-xs uppercase tracking-wider">
+          <tr id="header-row">
+            <th class="px-3 py-2 cursor-pointer" data-col="rank">#</th>
+            <th class="px-3 py-2 cursor-pointer" data-col="ticker">Ticker</th>
+            <th class="px-3 py-2 cursor-pointer" data-col="name">Name</th>
+            <th class="px-3 py-2 cursor-pointer" data-col="sector">Sektor</th>
+            <th class="px-3 py-2 cursor-pointer text-right" data-col="market_cap_usd">Mkt Cap</th>
+            <th class="px-3 py-2 cursor-pointer text-right font-bold" data-col="total_score">Score</th>
+            <th class="px-3 py-2 text-right">Accel</th>
+            <th class="px-3 py-2 text-right">PEG</th>
+            <th class="px-3 py-2 text-right">MCap</th>
+            <th class="px-3 py-2 text-right">Rev</th>
+            <th class="px-3 py-2 text-right">Turn</th>
+            <th class="px-3 py-2 text-right">TTM PE</th>
+            <th class="px-3 py-2 text-right">g0</th>
+            <th class="px-3 py-2"></th>
+          </tr>
+        </thead>
+        <tbody id="results-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="detail-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6">
+      <div id="modal-content"></div>
+      <button id="close-modal" class="mt-4 bg-slate-800 text-white px-4 py-2 rounded text-sm">Schließen</button>
+    </div>
+  </div>
+
+  <script>
+    const state = { data: null, sortCol: "total_score", sortDir: "desc" };
+
+    function formatUSD(n) {
+      if (n == null) return "n/a";
+      if (n >= 1e9) return (n / 1e9).toFixed(2) + " Mrd";
+      if (n >= 1e6) return (n / 1e6).toFixed(1) + " Mio";
+      return n.toLocaleString();
+    }
+
+    function formatPct(n) {
+      if (n == null) return "n/a";
+      return (n * 100).toFixed(1) + "%";
+    }
+
+    function renderTable(rows) {
+      const tbody = document.getElementById("results-body");
+      tbody.innerHTML = "";
+      rows.forEach((r, idx) => {
+        const tr = document.createElement("tr");
+        tr.className = "border-t hover:bg-slate-50 cursor-pointer";
+        tr.innerHTML = `
+          <td class="px-3 py-2 text-slate-500">${idx + 1}</td>
+          <td class="px-3 py-2 font-semibold">${r.ticker}</td>
+          <td class="px-3 py-2">${r.name}</td>
+          <td class="px-3 py-2 text-slate-600">${r.sector}</td>
+          <td class="px-3 py-2 text-right">${formatUSD(r.market_cap_usd)}</td>
+          <td class="px-3 py-2 text-right font-bold">${r.total_score}</td>
+          <td class="px-3 py-2 text-right">${r.eps_accel_score}</td>
+          <td class="px-3 py-2 text-right">${r.peg_score}</td>
+          <td class="px-3 py-2 text-right">${r.mcap_score}</td>
+          <td class="px-3 py-2 text-right">${r.revenue_score}</td>
+          <td class="px-3 py-2 text-right">${r.turnaround_score}</td>
+          <td class="px-3 py-2 text-right">${r.ttm_pe ? r.ttm_pe.toFixed(1) : "n/a"}</td>
+          <td class="px-3 py-2 text-right">${formatPct(r.yoy_eps_growth_rates?.[3])}</td>
+          <td class="px-3 py-2"><a href="https://finance.yahoo.com/quote/${r.ticker}" target="_blank" class="text-blue-600 hover:underline">↗</a></td>
+        `;
+        tr.addEventListener("click", (e) => {
+          if (e.target.tagName === "A") return;
+          showDetail(r);
+        });
+        tbody.appendChild(tr);
+      });
+    }
+
+    function showDetail(r) {
+      document.getElementById("modal-content").innerHTML = `
+        <h2 class="text-2xl font-bold mb-2">${r.ticker} — ${r.name}</h2>
+        <p class="text-slate-600 mb-4">${r.sector} · ${r.exchange}</p>
+        <div class="grid grid-cols-2 gap-2 text-sm">
+          <div><span class="text-slate-500">Market Cap:</span> ${formatUSD(r.market_cap_usd)}</div>
+          <div><span class="text-slate-500">Preis:</span> $${r.price?.toFixed(2)}</div>
+          <div><span class="text-slate-500">TTM EPS:</span> $${r.ttm_eps?.toFixed(2)}</div>
+          <div><span class="text-slate-500">MRQ EPS:</span> $${r.mrq_eps?.toFixed(2)}</div>
+          <div><span class="text-slate-500">TTM PE:</span> ${r.ttm_pe ? r.ttm_pe.toFixed(1) : "n/a"}</div>
+          <div><span class="text-slate-500">Avg Vol $:</span> ${formatUSD(r.avg_daily_volume_usd)}</div>
+        </div>
+        <h3 class="font-semibold mt-4 mb-1">yoy-EPS-Wachstum (4 Q, älteste → neueste):</h3>
+        <div class="text-sm">${(r.yoy_eps_growth_rates || []).map(formatPct).join("  →  ")}</div>
+        <h3 class="font-semibold mt-4 mb-2">Score-Komponenten (${r.total_score}/100):</h3>
+        <table class="text-sm w-full">
+          <tr><td class="py-1">EPS-Beschleunigung</td><td class="text-right">${r.eps_accel_score}/35</td></tr>
+          <tr><td class="py-1">PEG</td><td class="text-right">${r.peg_score}/25</td></tr>
+          <tr><td class="py-1">Market Cap klein</td><td class="text-right">${r.mcap_score}/15</td></tr>
+          <tr><td class="py-1">Umsatzwachstum (${formatPct(r.avg_yoy_revenue_growth)})</td><td class="text-right">${r.revenue_score}/15</td></tr>
+          <tr><td class="py-1">Turnaround-Bonus</td><td class="text-right">${r.turnaround_score}/10</td></tr>
+        </table>
+      `;
+      document.getElementById("detail-modal").classList.remove("hidden");
+    }
+
+    function showExplainer() {
+      document.getElementById("modal-content").innerHTML = `
+        <h2 class="text-2xl font-bold mb-3">Wie funktioniert der Screener?</h2>
+        <p class="text-sm text-slate-700 mb-3">
+          Dieser Screener sucht US-Aktien mit Marktkapitalisierung unter 500 Mio. USD,
+          die den fünf wiederkehrenden Mustern aus Tony's Studie "An Analysis of 100-baggers" entsprechen.
+        </p>
+        <h3 class="font-semibold mt-3 mb-1">Hard-Filter (Titel muss alle erfüllen)</h3>
+        <ul class="text-sm list-disc pl-5 text-slate-700">
+          <li>Market Cap &lt; 500 Mio. USD</li>
+          <li>Letztes Quartal (MRQ) EPS &gt; 0 (auch Turnaround-Kandidaten zulässig)</li>
+          <li>Durchschn. Tagesvolumen &gt; 100.000 USD</li>
+          <li>Mind. 8 Quartale Berichts-Historie</li>
+          <li>US-Listing (NYSE, NASDAQ, AMEX)</li>
+        </ul>
+        <h3 class="font-semibold mt-3 mb-1">Scoring (max 100 Punkte)</h3>
+        <ul class="text-sm list-disc pl-5 text-slate-700">
+          <li><b>EPS-Wachstumsbeschleunigung (max 35):</b> Werden die yoy-Wachstumsraten der letzten 4 Quartale sequentiell größer?</li>
+          <li><b>PEG-Ratio (max 25):</b> &lt; 0,5 = volle Punkte, &lt; 1,0 = halbe Punkte.</li>
+          <li><b>Market Cap klein (max 15):</b> je kleiner, desto mehr Raum für 100-fach.</li>
+          <li><b>Umsatzwachstum (max 15):</b> stützt die Qualität des EPS-Wachstums.</li>
+          <li><b>Turnaround-Signal (max 10):</b> Bonus, wenn vor 2+ Jahren Verlust, jetzt profitabel UND beschleunigend.</li>
+        </ul>
+        <p class="text-xs text-slate-500 mt-4">
+          Kein Investment-Ratschlag. Basis: Tony, "An Analysis of 100-baggers", tsanalysis.com.
+        </p>
+      `;
+      document.getElementById("detail-modal").classList.remove("hidden");
+    }
+
+    document.getElementById("explainer-btn").addEventListener("click", showExplainer);
+
+    document.getElementById("close-modal").addEventListener("click", () => {
+      document.getElementById("detail-modal").classList.add("hidden");
+    });
+    document.getElementById("detail-modal").addEventListener("click", (e) => {
+      if (e.target.id === "detail-modal") {
+        document.getElementById("detail-modal").classList.add("hidden");
+      }
+    });
+
+    function getFilteredRows() {
+      if (!state.data) return [];
+      const search = document.getElementById("filter-search").value.toLowerCase();
+      const sector = document.getElementById("filter-sector").value;
+      const minScore = parseInt(document.getElementById("filter-score").value, 10);
+      const maxMcapMio = parseInt(document.getElementById("filter-mcap").value, 10);
+
+      return state.data.top_results.filter((r) => {
+        if (search && !r.ticker.toLowerCase().includes(search) && !r.name.toLowerCase().includes(search)) return false;
+        if (sector && r.sector !== sector) return false;
+        if (r.total_score < minScore) return false;
+        if (r.market_cap_usd > maxMcapMio * 1_000_000) return false;
+        return true;
+      });
+    }
+
+    function sortRows(rows) {
+      const col = state.sortCol;
+      const dir = state.sortDir === "asc" ? 1 : -1;
+      return rows.slice().sort((a, b) => {
+        const av = a[col], bv = b[col];
+        if (av == null) return 1;
+        if (bv == null) return -1;
+        if (typeof av === "string") return av.localeCompare(bv) * dir;
+        return (av - bv) * dir;
+      });
+    }
+
+    function refresh() {
+      const rows = sortRows(getFilteredRows());
+      renderTable(rows);
+    }
+
+    function populateSectorDropdown() {
+      const select = document.getElementById("filter-sector");
+      const sectors = [...new Set(state.data.top_results.map((r) => r.sector))].sort();
+      sectors.forEach((s) => {
+        const opt = document.createElement("option");
+        opt.value = s;
+        opt.textContent = s;
+        select.appendChild(opt);
+      });
+    }
+
+    ["filter-search", "filter-sector"].forEach((id) => {
+      document.getElementById(id).addEventListener("input", refresh);
+    });
+    document.getElementById("filter-score").addEventListener("input", (e) => {
+      document.getElementById("score-val").textContent = e.target.value;
+      refresh();
+    });
+    document.getElementById("filter-mcap").addEventListener("input", (e) => {
+      document.getElementById("mcap-val").textContent = e.target.value;
+      refresh();
+    });
+
+    document.querySelectorAll("#header-row th[data-col]").forEach((th) => {
+      th.addEventListener("click", () => {
+        const col = th.dataset.col;
+        if (state.sortCol === col) {
+          state.sortDir = state.sortDir === "asc" ? "desc" : "asc";
+        } else {
+          state.sortCol = col;
+          state.sortDir = "desc";
+        }
+        refresh();
+      });
+    });
+
+    async function load() {
+      try {
+        const resp = await fetch("data.json");
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const data = await resp.json();
+        state.data = data;
+        document.getElementById("meta").textContent =
+          `Stand ${data.generated_at} · ${data.universe_size.toLocaleString()} Titel gescreent · ${data.passed_hard_filter} durch Hard-Filter · Top ${data.top_results.length} angezeigt`;
+        populateSectorDropdown();
+        refresh();
+      } catch (e) {
+        const banner = document.getElementById("error-banner");
+        banner.textContent = `Datenfile konnte nicht geladen werden: ${e.message}. Liegt dashboard/data.json vor?`;
+        banner.classList.remove("hidden");
+      }
+    }
+
+    load();
+  </script>
+</body>
+</html>
