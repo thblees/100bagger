@@ -37,7 +37,7 @@ Alternativ GitHub CLI verwenden falls installiert: `gh auth login` einmalig, dan
 
 1. Im Repo: `Settings` → `Pages` (linke Sidebar)
 2. **Source:** `Deploy from a branch`
-3. **Branch:** `main`, Folder: `/dashboard`
+3. **Branch:** `main`, Folder: `/docs`
 4. `Save`
 
 Nach 1-2 Minuten ist die Seite live unter **https://thblees.github.io/100bagger/**

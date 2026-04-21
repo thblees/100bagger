@@ -6,3 +6,7 @@ venv/
 pipeline_log.txt
 *.egg-info/
 .DS_Store
+.claude/
+pipeline/mini_run.py
+*.pptx
+*.pdf

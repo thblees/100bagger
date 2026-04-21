@@ -19,7 +19,7 @@ venv/Scripts/python pipeline/run_pipeline.py
 Dauer: ca. 30–60 Minuten für ~6.800 US-Ticker.
 
 Output:
-- `dashboard/data.json` — Ergebnis-Datenfile für das Dashboard
+- `docs/data.json` — Ergebnis-Datenfile für das Dashboard
 - `pipeline/pipeline_log.txt` — Protokoll (passed / filtered / skipped pro Ticker)
 
 ## Dashboard ansehen
@@ -27,12 +27,12 @@ Output:
 Lokal starten:
 
 ```bash
-venv/Scripts/python -m http.server 8080 --directory dashboard
+venv/Scripts/python -m http.server 8080 --directory docs
 ```
 
 Dann im Browser: http://localhost:8080
 
-Alternativ: Ordner `dashboard/` auf GitHub Pages, Netlify Drop oder einem anderen statischen Host deployen.
+Alternativ: Ordner `docs/` auf GitHub Pages, Netlify Drop oder einem anderen statischen Host deployen.
 
 ## Tests
 
@@ -66,7 +66,7 @@ Das Dashboard läuft als statische Seite auf **https://thblees.github.io/100bagg
 
 - Design-Spec: [docs/superpowers/specs/2026-04-21-100bagger-screener-design.md](docs/superpowers/specs/2026-04-21-100bagger-screener-design.md)
 - Implementation Plan: [docs/superpowers/plans/2026-04-21-100bagger-screener.md](docs/superpowers/plans/2026-04-21-100bagger-screener.md)
-- Originalstudie: [100-baggers.md](100-baggers.md) / [100-baggers.pdf](100-baggers.pdf)
+- Originalstudie: [100-baggers.md](100-baggers.md)
 
 ## Datenquelle
 

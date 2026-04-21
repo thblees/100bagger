@@ -5,7 +5,7 @@ Usage:
     python pipeline/run_pipeline.py
 
 Output:
-    dashboard/data.json
+    docs/data.json
     pipeline/pipeline_log.txt
 """
 import sys
@@ -25,7 +25,7 @@ from output import assemble_output, write_output
 
 
 LOG_PATH = ROOT / "pipeline" / "pipeline_log.txt"
-OUTPUT_PATH = ROOT / "dashboard" / "data.json"
+OUTPUT_PATH = ROOT / "docs" / "data.json"
 
 
 def log(msg: str, log_file) -> None:
