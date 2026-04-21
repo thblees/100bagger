@@ -58,6 +58,10 @@ Aktueller Stand: 38 Tests.
 - Umsatzwachstum (15)
 - Turnaround-Bonus (10)
 
+## Online-Hosting
+
+Das Dashboard läuft als statische Seite auf **https://thblees.github.io/100bagger/** und wird monatlich automatisch per GitHub Actions aktualisiert. Setup-Anleitung: [GITHUB_SETUP.md](GITHUB_SETUP.md).
+
 ## Dokumentation
 
 - Design-Spec: [docs/superpowers/specs/2026-04-21-100bagger-screener-design.md](docs/superpowers/specs/2026-04-21-100bagger-screener-design.md)
