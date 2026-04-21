@@ -89,6 +89,16 @@
       return (n * 100).toFixed(1) + "%";
     }
 
+    function tradingviewUrl(ticker, exchange) {
+      const tvExchange = {
+        "NASDAQ": "NASDAQ",
+        "NYSE": "NYSE",
+        "NYSE AMERICAN": "AMEX",
+        "AMEX": "AMEX",
+      }[(exchange || "").toUpperCase()] || "NASDAQ";
+      return `https://www.tradingview.com/symbols/${tvExchange}-${ticker}/`;
+    }
+
     function renderTable(rows) {
       const tbody = document.getElementById("results-body");
       tbody.innerHTML = "";
@@ -109,7 +119,10 @@
           <td class="px-3 py-2 text-right">${r.turnaround_score}</td>
           <td class="px-3 py-2 text-right">${r.ttm_pe ? r.ttm_pe.toFixed(1) : "n/a"}</td>
           <td class="px-3 py-2 text-right">${formatPct(r.yoy_eps_growth_rates?.[3])}</td>
-          <td class="px-3 py-2"><a href="https://finance.yahoo.com/quote/${r.ticker}" target="_blank" class="text-blue-600 hover:underline">↗</a></td>
+          <td class="px-3 py-2 whitespace-nowrap">
+            <a href="${tradingviewUrl(r.ticker, r.exchange)}" target="_blank" class="text-blue-600 hover:underline mr-2" title="TradingView Chart">TV</a>
+            <a href="https://finance.yahoo.com/quote/${r.ticker}" target="_blank" class="text-slate-500 hover:underline" title="Yahoo Finance">Y</a>
+          </td>
         `;
         tr.addEventListener("click", (e) => {
           if (e.target.tagName === "A") return;
@@ -122,7 +135,11 @@
     function showDetail(r) {
       document.getElementById("modal-content").innerHTML = `
         <h2 class="text-2xl font-bold mb-2">${r.ticker} — ${r.name}</h2>
-        <p class="text-slate-600 mb-4">${r.sector} · ${r.exchange}</p>
+        <p class="text-slate-600 mb-3">${r.sector} · ${r.exchange}</p>
+        <div class="flex gap-2 mb-4">
+          <a href="${tradingviewUrl(r.ticker, r.exchange)}" target="_blank" class="bg-blue-600 text-white px-3 py-1 rounded text-xs hover:bg-blue-700">📈 TradingView Chart</a>
+          <a href="https://finance.yahoo.com/quote/${r.ticker}" target="_blank" class="bg-slate-200 text-slate-800 px-3 py-1 rounded text-xs hover:bg-slate-300">Yahoo Finance</a>
+        </div>
         <div class="grid grid-cols-2 gap-2 text-sm">
           <div><span class="text-slate-500">Market Cap:</span> ${formatUSD(r.market_cap_usd)}</div>
           <div><span class="text-slate-500">Preis:</span> $${r.price?.toFixed(2)}</div>
