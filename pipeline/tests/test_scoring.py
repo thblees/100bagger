@@ -72,3 +72,55 @@ def test_peg_uses_mrq_annualized_when_ttm_negative():
 def test_peg_growth_zero_or_negative_scores_0():
     assert peg_score(price=20.0, ttm_eps=1.0, mrq_eps=0.30, g_0=0.0) == 0
     assert peg_score(price=20.0, ttm_eps=1.0, mrq_eps=0.30, g_0=-0.10) == 0
+
+
+from scoring import market_cap_score, revenue_score, turnaround_score
+
+
+def test_market_cap_below_100m():
+    assert market_cap_score(80_000_000) == 15
+
+
+def test_market_cap_below_250m():
+    assert market_cap_score(200_000_000) == 10
+
+
+def test_market_cap_below_500m():
+    assert market_cap_score(400_000_000) == 5
+
+
+def test_market_cap_above_500m():
+    assert market_cap_score(600_000_000) == 0
+
+
+def test_revenue_high_growth():
+    assert revenue_score(0.35) == 15
+
+
+def test_revenue_mid_growth():
+    assert revenue_score(0.20) == 8
+
+
+def test_revenue_low_growth():
+    assert revenue_score(0.08) == 3
+
+
+def test_revenue_no_growth():
+    assert revenue_score(0.02) == 0
+
+
+def test_turnaround_active():
+    # Old EPS was negative, current is positive, accel score >= 20
+    assert turnaround_score(eps_2y_ago=-0.10, current_eps=0.05, accel_score=25) == 10
+
+
+def test_turnaround_requires_old_loss():
+    assert turnaround_score(eps_2y_ago=0.05, current_eps=0.10, accel_score=25) == 0
+
+
+def test_turnaround_requires_current_profit():
+    assert turnaround_score(eps_2y_ago=-0.10, current_eps=-0.02, accel_score=25) == 0
+
+
+def test_turnaround_requires_accel_score():
+    assert turnaround_score(eps_2y_ago=-0.10, current_eps=0.05, accel_score=18) == 0

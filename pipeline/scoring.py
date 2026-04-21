@@ -57,3 +57,32 @@ def peg_score(price: float, ttm_eps: float, mrq_eps: float, g_0: float) -> int:
     if peg < 1.5:
         return 5
     return 0
+
+
+def market_cap_score(market_cap_usd: float) -> int:
+    """Smaller is better (more room for 100x). Returns 0..15."""
+    if market_cap_usd < 100_000_000:
+        return 15
+    if market_cap_usd < 250_000_000:
+        return 10
+    if market_cap_usd < 500_000_000:
+        return 5
+    return 0
+
+
+def revenue_score(avg_yoy_revenue_growth: float) -> int:
+    """Supports EPS-growth quality. Returns 0..15."""
+    if avg_yoy_revenue_growth > 0.30:
+        return 15
+    if avg_yoy_revenue_growth > 0.15:
+        return 8
+    if avg_yoy_revenue_growth > 0.05:
+        return 3
+    return 0
+
+
+def turnaround_score(eps_2y_ago: float, current_eps: float, accel_score: int) -> int:
+    """Bonus for classic turnaround pattern. Returns 0 or 10."""
+    if eps_2y_ago <= 0 and current_eps > 0 and accel_score >= 20:
+        return 10
+    return 0
