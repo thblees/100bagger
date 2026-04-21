@@ -26,3 +26,34 @@ def eps_acceleration_score(growth_rates: List[float]) -> int:
     if steps_up == 1 and max(g) in (g[2], g[3]):
         return 10
     return 0
+
+
+def peg_score(price: float, ttm_eps: float, mrq_eps: float, g_0: float) -> int:
+    """
+    Score based on PEG ratio.
+
+    Uses TTM EPS if positive; falls back to MRQ*4 as annualized proxy when
+    TTM is non-positive (turnaround case). MRQ EPS is guaranteed > 0 by the
+    hard filter.
+
+    Returns 0..25 per spec thresholds.
+    """
+    if g_0 <= 0:
+        return 0
+
+    effective_eps = ttm_eps if ttm_eps > 0 else mrq_eps * 4
+    if effective_eps <= 0:
+        return 0
+
+    effective_pe = price / effective_eps
+    peg = effective_pe / (g_0 * 100)
+
+    if peg < 0:
+        return 0
+    if peg < 0.5:
+        return 25
+    if peg < 1.0:
+        return 15
+    if peg < 1.5:
+        return 5
+    return 0

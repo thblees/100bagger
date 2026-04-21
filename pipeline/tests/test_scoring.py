@@ -38,3 +38,37 @@ def test_wrong_length_raises():
     import pytest
     with pytest.raises(ValueError):
         eps_acceleration_score([0.1, 0.2])
+
+
+from scoring import peg_score
+
+
+def test_peg_low_scores_25():
+    # price=10, ttm_eps=1 (PE=10), g_0=0.50 (50%) => PEG=10/50=0.2
+    assert peg_score(price=10.0, ttm_eps=1.0, mrq_eps=0.30, g_0=0.50) == 25
+
+
+def test_peg_mid_scores_15():
+    # price=20, ttm_eps=1, PE=20, g_0=0.30 => PEG=20/30=0.67
+    assert peg_score(price=20.0, ttm_eps=1.0, mrq_eps=0.30, g_0=0.30) == 15
+
+
+def test_peg_high_scores_5():
+    # price=40, ttm_eps=1, PE=40, g_0=0.35 => PEG=40/35=1.14
+    assert peg_score(price=40.0, ttm_eps=1.0, mrq_eps=0.30, g_0=0.35) == 5
+
+
+def test_peg_unattractive_scores_0():
+    # price=80, ttm_eps=1, PE=80, g_0=0.20 => PEG=80/20=4.0
+    assert peg_score(price=80.0, ttm_eps=1.0, mrq_eps=0.30, g_0=0.20) == 0
+
+
+def test_peg_uses_mrq_annualized_when_ttm_negative():
+    # ttm_eps=-0.20 (turnaround), mrq_eps=0.25 => annualized=1.00
+    # price=20, effective_PE=20, g_0=0.60 => PEG=20/60=0.33 => 25 pts
+    assert peg_score(price=20.0, ttm_eps=-0.20, mrq_eps=0.25, g_0=0.60) == 25
+
+
+def test_peg_growth_zero_or_negative_scores_0():
+    assert peg_score(price=20.0, ttm_eps=1.0, mrq_eps=0.30, g_0=0.0) == 0
+    assert peg_score(price=20.0, ttm_eps=1.0, mrq_eps=0.30, g_0=-0.10) == 0
