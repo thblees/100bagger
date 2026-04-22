@@ -12,10 +12,7 @@
     font-size: 10.5pt; line-height: 1.55;
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
-  .page {
-    width: 210mm; height: 297mm; padding: 22mm 20mm;
-    page-break-after: always; position: relative; overflow: hidden;
-  }
+  .page { width: 210mm; height: 297mm; padding: 22mm 20mm; page-break-after: always; position: relative; overflow: hidden; }
   .page:last-child { page-break-after: auto; }
 
   .cover {
@@ -25,7 +22,7 @@
   }
   .cover-brand { font-family: "Arial Black", Arial, sans-serif; font-size: 9pt; letter-spacing: 0.3em; text-transform: uppercase; color: #e6b74d; }
   .cover-title { font-family: "Arial Black", Arial, sans-serif; font-size: 48pt; line-height: 1.02; letter-spacing: -0.02em; margin-top: 18mm; }
-  .cover-subtitle { font-family: Arial, sans-serif; font-size: 14pt; font-weight: 300; margin-top: 8mm; color: #d8dce8; max-width: 120mm; line-height: 1.4; }
+  .cover-subtitle { font-size: 14pt; font-weight: 300; margin-top: 8mm; color: #d8dce8; max-width: 120mm; line-height: 1.4; }
   .cover-issue { display: flex; justify-content: space-between; align-items: flex-end; margin-top: auto; font-size: 10pt; }
   .cover-issue .label { text-transform: uppercase; letter-spacing: 0.2em; color: #8d96b0; font-size: 8.5pt; margin-bottom: 2mm; }
   .cover-issue .value { font-family: "Arial Black", Arial, sans-serif; font-size: 18pt; color: #ffffff; }
@@ -41,14 +38,26 @@
   strong { color: #1B2A4A; }
 
   .intro-lead { font-size: 12pt; color: #1F3055; line-height: 1.5; margin-bottom: 5mm; }
-  .five-criteria { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; margin-top: 4mm; }
-  .crit { background: #F0F0F0; padding: 4mm 5mm; border-left: 3px solid #1B2A4A; }
-  .crit .num { font-family: "Arial Black", sans-serif; font-size: 22pt; color: #e6b74d; line-height: 1; }
-  .crit .name { font-family: "Arial Black", sans-serif; font-size: 10.5pt; text-transform: uppercase; letter-spacing: 0.05em; margin: 1.5mm 0 1mm 0; }
-  .crit p { margin: 0; font-size: 9.5pt; color: #4a5170; }
+  .six-criteria { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; margin-top: 3mm; }
+  .crit { background: #F0F0F0; padding: 3mm 4mm; border-left: 3px solid #1B2A4A; }
+  .crit .num { font-family: "Arial Black", sans-serif; font-size: 18pt; color: #e6b74d; line-height: 1; }
+  .crit .name { font-family: "Arial Black", sans-serif; font-size: 9.5pt; text-transform: uppercase; letter-spacing: 0.05em; margin: 1mm 0 1mm 0; }
+  .crit p { margin: 0; font-size: 9pt; color: #4a5170; }
 
   .quality-callout { background: #e8f5e9; border-left: 3px solid #2e7d32; padding: 4mm 5mm; margin: 4mm 0 2mm 0; font-size: 9.5pt; }
   .quality-callout strong { color: #1b5e20; }
+
+  .funnel-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; margin: 4mm 0; }
+  .funnel-box { background: #F8F8F8; padding: 4mm 3mm; text-align: center; border-top: 3px solid #1B2A4A; }
+  .funnel-box .n { font-family: "Arial Black", sans-serif; font-size: 26pt; color: #1B2A4A; line-height: 1; }
+  .funnel-box .lbl { font-size: 8pt; color: #8C8C8C; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2mm; }
+
+  .excluded-list { margin-top: 4mm; }
+  .excluded-row { display: grid; grid-template-columns: 24mm 1fr; gap: 4mm; padding: 3mm 4mm; background: #fdf3f3; border-left: 3px solid #c62828; margin-bottom: 2mm; }
+  .excluded-row .ticker-box { font-family: "Arial Black", sans-serif; font-size: 13pt; color: #c62828; line-height: 1; }
+  .excluded-row .ticker-box .name { font-family: Arial, sans-serif; font-size: 7.5pt; color: #8C8C8C; font-weight: normal; letter-spacing: 0.05em; margin-top: 1mm; text-transform: uppercase; }
+  .excluded-row .reason { font-size: 9.5pt; }
+  .excluded-row .reason strong { color: #c62828; }
 
   .company-hero { background: #1B2A4A; color: #ffffff; padding: 6mm 7mm; margin-bottom: 5mm; display: grid; grid-template-columns: 1fr auto auto; gap: 4mm; align-items: center; }
   .company-hero .meta-line { font-size: 8.5pt; color: #e6b74d; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 1mm; }
@@ -96,55 +105,89 @@
   <div><div class="cover-brand">Meine Geldseite · Research</div></div>
   <div>
     <div class="cover-title">100-Bagger<br>Screener</div>
-    <div class="cover-subtitle">Quartalsreport mit den aktuellen Top-Kandidaten – systematisch gefiltert nach den fünf Mustern aus Tony's Originalstudie, qualitätsgeprüft gegen statistische Artefakte.</div>
+    <div class="cover-subtitle">Quartalsreport mit den kuratierten 100-Bagger-Kandidaten – systematisch gefiltert nach Tony's fünf Mustern, qualitätsgeprüft gegen statistische Artefakte und strukturell nicht-skalierbare Geschäftsmodelle.</div>
   </div>
   <div class="cover-issue">
     <div><div class="label">Ausgabe</div><div class="value">Q2 / 2026</div></div>
     <div style="text-align: right;"><div class="label">Stand</div><div class="value">22. April 2026</div></div>
   </div>
   <div class="cover-footer">
-    <span>PROTOTYP · Quality-gefilterte Kandidaten</span>
+    <span>PROTOTYP · Kuratierte Auswahl</span>
     <span>thblees.github.io/100bagger</span>
   </div>
 </section>
 
+<!-- METHODOLOGY -->
 <section class="page">
-  <div class="page-head">
-    <span class="issue">100-Bagger Screener · Q2 2026</span>
-    <span class="meta">Methodik</span>
-  </div>
+  <div class="page-head"><span class="issue">100-Bagger Screener · Q2 2026</span><span class="meta">Methodik</span></div>
   <h1>Wie dieser Report entsteht</h1>
-  <p class="intro-lead">Dieser Report filtert aus allen ~6.850 US-gelisteten Aktien (NASDAQ, NYSE, AMEX) systematisch jene Small-Caps heraus, die aktuell das Muster möglicher Verhundertfacher zeigen – so wie es <strong>Tony (tsanalysis.com)</strong> in seiner Analyse vergangener 100-Bagger herausgearbeitet hat.</p>
+  <p class="intro-lead">Aus allen ~6.850 US-gelisteten Aktien (NASDAQ, NYSE, AMEX) extrahiert unsere Pipeline systematisch jene Small-Caps, die das Muster möglicher Verhundertfacher nach <strong>Tony's Originalstudie</strong> (tsanalysis.com) zeigen – kombiniert mit einer strengen Kuratierung gegen Artefakte und strukturell unmögliche Geschäftsmodelle.</p>
 
-  <p>Tony hat rund zwanzig historische 100-Bagger (u.&nbsp;a. Monster Beverage, Medifast, NutriSystem, Bally Technologies, Green Mountain Coffee) rückwirkend analysiert und fünf wiederkehrende Muster identifiziert. Der Screener übersetzt diese qualitativen Muster in konkrete Zahlen und vergibt pro Titel einen Score von 0 bis 100 Punkten. Die fünf Bausteine:</p>
-
-  <div class="five-criteria">
-    <div class="crit"><div class="num">01</div><div class="name">EPS-Beschleunigung</div><p>Max. 35 Punkte. Steigen die yoy-Wachstumsraten der letzten vier Quartale sequentiell an?</p></div>
-    <div class="crit"><div class="num">02</div><div class="name">PEG-Ratio</div><p>Max. 25 Punkte. Steht das KGV im günstigen Verhältnis zum Gewinnwachstum?</p></div>
-    <div class="crit"><div class="num">03</div><div class="name">Kleine Marktkapitalisierung</div><p>Max. 15 Punkte. Je kleiner die Ausgangsbasis, desto mehr Raum für das 100-fache.</p></div>
-    <div class="crit"><div class="num">04</div><div class="name">Umsatzwachstum</div><p>Max. 15 Punkte. Stützt die Qualität des Gewinnwachstums.</p></div>
-    <div class="crit"><div class="num">05</div><div class="name">Turnaround-Signal</div><p>Bonus 10 Punkte. Rückkehr aus Verlustphasen mit Beschleunigung.</p></div>
-    <div class="crit" style="background: #1B2A4A; color: #ffffff; border-left: 3px solid #e6b74d;"><div class="num" style="color: #e6b74d;">Σ</div><div class="name" style="color: #ffffff;">Hard Filter</div><p style="color: #d8dce8;">Market Cap &lt; 500 Mio. USD, MRQ profitabel, ≥ 8 Quartale Historie, Vol &gt; 100k USD/Tag, US-Listing.</p></div>
+  <h2>Stufe 1: Tony's fünf Muster (Score 0-100)</h2>
+  <div class="six-criteria">
+    <div class="crit"><div class="num">01</div><div class="name">EPS-Beschleunigung</div><p>Max. 35 Pkt. Sequentiell steigende yoy-Wachstumsraten der letzten vier Quartale.</p></div>
+    <div class="crit"><div class="num">02</div><div class="name">PEG-Ratio</div><p>Max. 25 Pkt. KGV im günstigen Verhältnis zum Gewinnwachstum.</p></div>
+    <div class="crit"><div class="num">03</div><div class="name">Kleine Market Cap</div><p>Max. 15 Pkt. Je kleiner die Basis, desto mehr Raum für 100x.</p></div>
+    <div class="crit"><div class="num">04</div><div class="name">Umsatzwachstum</div><p>Max. 15 Pkt. Stützt Qualität des Gewinnwachstums.</p></div>
+    <div class="crit"><div class="num">05</div><div class="name">Turnaround</div><p>Bonus 10 Pkt. Rückkehr aus Verlustphasen mit Beschleunigung.</p></div>
+    <div class="crit" style="background: #1B2A4A; color: #ffffff; border-left: 3px solid #e6b74d;"><div class="num" style="color: #e6b74d;">Σ</div><div class="name" style="color: #ffffff;">Hard Filter</div><p style="color: #d8dce8;">MCap &lt; 500M, MRQ profitabel, ≥ 8 Q Historie, Vol &gt; 100k/Tag, US-Listing.</p></div>
   </div>
 
-  <h2>Quality-Overlay gegen statistische Artefakte</h2>
+  <h2>Stufe 2: Quality-Overlay gegen Artefakte</h2>
   <div class="quality-callout">
-    <p><strong>Wichtiger Zusatz:</strong> Der rohe Score verrät nicht, <em>warum</em> ein Unternehmen so hoch scorte. Viele Spitzenwerte entstehen durch Einmaleffekte – etwa eine Upfront-Zahlung aus einem Pharmadeal, die einen einzelnen Quartalsgewinn künstlich aufbläht. Solche Kandidaten sind keine echten Turnaround-Stories, sondern buchhalterische Ausreißer.</p>
-    <p>In dieser Ausgabe wird daher jeder Kandidat zusätzlich gegen fünf Qualitäts-Filter geprüft: <strong>TTM-Gewinn positiv</strong> (nicht nur MRQ), <strong>operativer Cashflow positiv</strong>, <strong>Aktienanzahl-Wachstum unter 20 %</strong>, <strong>Market Cap über 50 Mio. USD</strong>, <strong>Bruttomarge stabil oder steigend</strong>. Nur wer alle fünf Gates durchläuft, schafft es in den Report.</p>
+    <p><strong>Fünf Qualitäts-Gates filtern Einmaleffekte heraus:</strong> TTM-Gewinn positiv (nicht nur MRQ), operativer Cashflow positiv, Aktienanzahl-Wachstum unter 20 %, Market Cap über 50 Mio. USD, Bruttomarge stabil oder steigend.</p>
+  </div>
+
+  <h2>Stufe 3: Business-Model-Kuratierung</h2>
+  <div class="quality-callout" style="background: #e3f2fd; border-left-color: #1565c0;">
+    <p><strong>Strukturell nicht-skalierbare Geschäftsmodelle fallen raus:</strong> Banken, Versicherungen, REITs, Utilities, Asset-Management, reine Commodity-Zykliker (Öl/Gas, Edelmetalle, Kali, Shipping). Diese Sektoren können 2-5x liefern, aber praktisch nie 100x. Zusätzlich: Jeder einzelne finale Kandidat wird analyst-seitig darauf geprüft, ob die Fazit-Aussage "kein 100-Bagger" lautet – falls ja, fliegt er raus.</p>
   </div>
 
   <h2>In dieser Ausgabe</h2>
-  <p>Aus 6.850 untersuchten Titeln passierten 423 den Hard-Filter. Von den Top 50 nach Score bestanden nur <strong>10 den Quality-Overlay</strong>. Die drei bestplatzierten dieser gefilterten Gruppe werden nachfolgend ausführlich vorgestellt.</p>
+  <div class="funnel-stats">
+    <div class="funnel-box"><div class="n">6.850</div><div class="lbl">Universe</div></div>
+    <div class="funnel-box"><div class="n">423</div><div class="lbl">Hard Filter</div></div>
+    <div class="funnel-box"><div class="n">6</div><div class="lbl">Quality + Sektor</div></div>
+    <div class="funnel-box" style="border-top-color: #e6b74d; background: #fffbeb;"><div class="n">2</div><div class="lbl">Final im Report</div></div>
+  </div>
+  <p>Nach allen drei Stufen bleiben in Q2/2026 <strong>nur zwei echte 100-Bagger-Kandidaten</strong>. Das ist bewusst so: Qualität vor Quantität. Auf der nächsten Seite zeigen wir transparent, welche vier Kandidaten die ersten beiden Stufen bestanden – und warum wir sie trotzdem ausgeschlossen haben.</p>
 
   <div class="page-foot"><span>100-Bagger Screener · Q2 2026</span><span>meine-geldseite.de</span></div>
 </section>
 
-<!-- ========== ORGO ========== -->
+<!-- EXCLUDED CANDIDATES — TRANSPARENCY PAGE -->
 <section class="page">
-  <div class="page-head">
-    <span class="issue">Kandidat 01 · Score 80/100 · Quality bestanden</span>
-    <span class="meta">Healthcare · Regenerative Medizin</span>
+  <div class="page-head"><span class="issue">100-Bagger Screener · Q2 2026</span><span class="meta">Kuratierung</span></div>
+  <h1>Die ausgeschlossenen Kandidaten</h1>
+  <p class="intro-lead">Vier Titel haben den quantitativen Screener und die Quality-Gates bestanden – wurden aber nach ausführlicher Fundamentalanalyse als <em>keine realistischen 100-Bagger-Kandidaten</em> eingeordnet. Transparenz statt künstliche Quantität:</p>
+
+  <div class="excluded-list">
+    <div class="excluded-row">
+      <div class="ticker-box">PRTH<div class="name">Priority Technology Holdings</div></div>
+      <div class="reason"><strong>Basis zu groß, Bilanz zu schwer.</strong> Mit 421 Mio. USD Market Cap, 950 Mio. USD Umsatz und 1,04 Mrd. USD Bruttoschulden bei negativem Eigenkapital ist der Ausgangspunkt bereits zu weit fortgeschritten. Realistisch 5-10x über 3-5 Jahre, kein 100-Bagger.</div>
+    </div>
+    <div class="excluded-row">
+      <div class="ticker-box">VNCE<div class="name">Vince Holding Corp.</div></div>
+      <div class="reason"><strong>Fashion ist strukturell kapazitätsbegrenzt.</strong> Premium-Casual-Mode erfordert physische Stores, ist trend- und saisonabhängig, hat begrenzte Preissetzungsmacht. Ein 100-Bagger würde 5,7 Mrd. USD Market Cap und 10-15 Mrd. USD Umsatz erfordern – das hat im Premium-Casual-Segment noch nie ein Spieler erreicht. Realistisch 3-5x.</div>
+    </div>
+    <div class="excluded-row">
+      <div class="ticker-box">IDN<div class="name">Intellicheck, Inc.</div></div>
+      <div class="reason"><strong>Wachstum zu moderat, Kundenkonzentration steigt.</strong> Mit 13 % Umsatzwachstum, 77 % Umsatz aus Top-10-Kunden (Trend steigend) und kapitalstarken Wettbewerbern (Socure, Jumio, LexisNexis) fehlt die 100-Bagger-Dynamik. Solider SaaS-Compounder mit 5-20x Upside, aber nicht 100x.</div>
+    </div>
+    <div class="excluded-row">
+      <div class="ticker-box">SHIP<div class="name">Seanergy Maritime</div></div>
+      <div class="reason"><strong>Commodity-Shipping-Zykliker ohne Compounder-Charakteristik.</strong> Reiner Capesize-Flottenbetreiber, Preisnehmer am Baltic Capesize Index, keine Skalierungsmargen, keine Netzwerkeffekte. Das Screener-Muster ist der zyklische Rebound nach Verlustjahren, nicht strukturelles Wachstum. Realistisch 3-5x im Zyklus-Hoch, nicht 100x.</div>
+    </div>
   </div>
+
+  <p style="margin-top: 5mm; font-size: 9.5pt; color: #4a5170;"><em>Diese Titel haben alle quantitativen Filter passiert und könnten in anderen Screenern als attraktiv erscheinen. Für einen 100-Bagger-fokussierten Report sind sie aber der falsche Profit-Typ. Wir halten lieber zwei ehrliche Kandidaten als zehn aufgeblähte.</em></p>
+
+  <div class="page-foot"><span>100-Bagger Screener · Q2 2026</span><span>Kuratierung</span></div>
+</section>
+
+<!-- ORGO -->
+<section class="page">
+  <div class="page-head"><span class="issue">Kandidat 01 · Score 80/100 · Alle Filter bestanden</span><span class="meta">Healthcare · Regenerative Medizin</span></div>
   <div class="company-hero">
     <div>
       <div class="meta-line">Healthcare · Regenerative Medizin</div>
@@ -172,213 +215,128 @@
   </div>
 
   <h2>Firmenvorstellung</h2>
-  <p>Organogenesis Holdings, ein US-Unternehmen für regenerative Medizin mit Hauptsitz in Canton, Massachusetts, stellt biologisch aktive Wundauflagen und Gewebematrizen her, die dem menschlichen Körper helfen, sich selbst zu reparieren. Die operative Gesellschaft wurde bereits 1985 gegründet, der Börsengang erfolgte 2017 über einen Reverse Merger.</p>
+  <p>Organogenesis Holdings, ein US-Unternehmen für regenerative Medizin mit Hauptsitz in Canton, Massachusetts, stellt biologisch aktive Wundauflagen und Gewebematrizen her, die dem menschlichen Körper helfen, sich selbst zu reparieren. Die operative Gesellschaft wurde 1985 gegründet, der Börsengang erfolgte 2017 über einen Reverse Merger.</p>
   <p>Rund 94 % des Umsatzes kommen aus der <strong>fortgeschrittenen Wundversorgung</strong> – chronische Wunden wie diabetische Fußgeschwüre und venöse Beingeschwüre, eine in alternder, adipöser und diabetisch vorbelasteter US-Bevölkerung strukturell wachsende Indikation. Flaggschiffprodukte: <strong>Apligraf</strong> (einziges bioartifizielles Hautäquivalent mit lebenden Zellen, FDA-PMA-zugelassen) und <strong>PuraPly AM</strong> (antimikrobielle Kollagenmatrix). <strong>Dermagraft</strong> wurde 2022 während des Baus eines neuen Produktionswerks in Rhode Island vorübergehend eingestellt – ein Relaunch ist geplant.</p>
-  <p>Hauptkonkurrenten sind MiMedx (direkt vergleichbar bei Größe und Produktsegment), Integra LifeSciences, Smith &amp; Nephew und ConvaTec. Gegenüber MiMedx kann ORGO klinische Studien ins Feld führen, die eine 52&nbsp;% höhere Wundheilungsrate für Dermagraft gegenüber dem Hauptwettbewerbsprodukt zeigen.</p>
+  <p>Hauptkonkurrenten sind MiMedx (direkt vergleichbar bei Größe und Produktsegment), Integra LifeSciences, Smith &amp; Nephew und ConvaTec. Gegenüber MiMedx kann ORGO klinische Studien ins Feld führen, die eine 52 % höhere Wundheilungsrate für Dermagraft gegenüber dem Hauptwettbewerbsprodukt zeigen.</p>
 
   <div class="page-foot"><span>100-Bagger Screener · Q2 2026 · Kandidat 01</span><span>ORGO · Organogenesis Holdings</span></div>
 </section>
 
 <section class="page">
-  <div class="page-head">
-    <span class="issue">Kandidat 01 · ORGO</span>
-    <span class="meta">Geschäftsmodell &amp; Einordnung</span>
-  </div>
+  <div class="page-head"><span class="issue">Kandidat 01 · ORGO</span><span class="meta">Geschäftsmodell &amp; Einordnung</span></div>
 
   <h2>Geschäftsmodell</h2>
   <p>Vertrieb ausschließlich über einen direkten US-Außendienst mit rund 350 spezialisierten Vertriebsmitarbeitern, die Wundversorgungszentren, Krankenhäuser und niedergelassene Ärzte betreuen. Keine Lizenzerträge, keine Partnerschaften – ORGO produziert, verkauft und liefert selbst.</p>
   <p>Der entscheidende Hebel im US-Gesundheitssystem: <strong>Medicare-Erstattung (CMS)</strong>. Historisch basierte die Vergütung auf den durchschnittlichen Verkaufspreisen, was bei teuren biologischen Produkten zu enormen Margen und Marktaufblähung führte (Medicare-Ausgaben für Haut-Substitute: 256 Mio. USD in 2019 → 10 Mrd. USD in 2024). Seit 2024 läuft der größte Umbau der Erstattungsregeln in der Branchengeschichte. Für 2026 gilt ein <strong>fixer Satz von rund 127 USD pro Quadratzentimeter</strong> applizierter Wundfläche – unabhängig vom Listpreis. Am 24. Dezember 2025 zog CMS kurzfristig strenge Local Coverage Determinations zurück, was zu massiver Verwirrung unter Ärzten führte.</p>
 
   <h2>Einordnung der Fundamentaldaten</h2>
-  <p>Der Profit-Turnaround ist real – kein buchhalterischer Einmaleffekt. Jahresumsatz 2025: 563,0 Mio. USD (+17&nbsp;% yoy). Jahresnettogewinn 2025: 37,0 Mio. USD (nach nur 0,9 Mio. in 2024). Q4 2025 allein: Umsatz 225,1 Mio. USD (+78&nbsp;% yoy), Nettogewinn 43,7 Mio. USD. Bruttomarge stabil bei 76-78&nbsp;% – Zeichen operativer Reife.</p>
-  <p><strong>Wichtig zu wissen:</strong> Der operative Cashflow war 2025 trotz hoher Gewinne mit −10,3 Mio. USD negativ – der Grund liegt in einem Anstieg der Forderungen um 115,8 Mio. USD, weil das Unternehmen so schnell wuchs, dass Medicare-Abrechnungen noch nicht eingegangen waren. Barmittel sanken von 136 auf 94,3 Mio. USD. ORGO ist <strong>schuldenfrei</strong>, zusätzlich stehen 75 Mio. USD ungenutzte Kreditlinie bereit.</p>
+  <p>Der Profit-Turnaround ist real – kein buchhalterischer Einmaleffekt. Jahresumsatz 2025: 563,0 Mio. USD (+17 % yoy). Jahresnettogewinn 2025: 37,0 Mio. USD (nach nur 0,9 Mio. in 2024). Q4 2025 allein: Umsatz 225,1 Mio. USD (+78 % yoy), Nettogewinn 43,7 Mio. USD. Bruttomarge stabil bei 76-78 % – Zeichen operativer Reife.</p>
+  <p><strong>Wichtig:</strong> Der operative Cashflow war 2025 trotz hoher Gewinne mit −10,3 Mio. USD negativ – der Grund liegt in einem Anstieg der Forderungen um 115,8 Mio. USD, weil das Unternehmen so schnell wuchs, dass Medicare-Abrechnungen noch nicht eingegangen waren. Barmittel sanken von 136 auf 94,3 Mio. USD. ORGO ist <strong>schuldenfrei</strong>, zusätzlich stehen 75 Mio. USD ungenutzte Kreditlinie bereit.</p>
 
   <h2>Warum der Screener sie gefunden hat</h2>
-  <p>Lehrbuchhafte EPS-Turnaround-Sequenz von Verlusten 2022/23 zu klar positivem TTM-EPS mit Q4-Sprung. KGV 16 auf TTM-Basis ist für ein profitables Healthcare-Unternehmen mit &gt; 76&nbsp;% Bruttomarge günstig. Umsatzwachstum +78&nbsp;% im wichtigsten Quartal signalisiert Marktanteilsgewinn. Schuldfreie Bilanz plus optionale Pipeline (Dermagraft-Relaunch, ReNu-BLA für Kniearthrose). <strong>Alle fünf Quality-Gates bestanden</strong> – das Gewinnwachstum basiert auf realer Ertragskraft, nicht auf Sondereffekten.</p>
+  <p>Lehrbuchhafte EPS-Turnaround-Sequenz von Verlusten 2022/23 zu klar positivem TTM-EPS mit Q4-Sprung. KGV 16 auf TTM-Basis ist für ein profitables Healthcare-Unternehmen mit &gt; 76 % Bruttomarge günstig. Umsatzwachstum +78 % signalisiert Marktanteilsgewinn. Schuldfreie Bilanz plus optionale Pipeline (Dermagraft-Relaunch, ReNu-BLA für Kniearthrose). <strong>Alle drei Filterstufen bestanden</strong>: Tony-Muster, Quality-Gates, skalierbares Healthcare-Geschäftsmodell ohne strukturelle 100x-Barrieren.</p>
 
   <h2>Risiken</h2>
   <div class="risk-list">
     <ul>
-      <li><strong>CMS-Abhängigkeit ist existenziell.</strong> Mehr als 80&nbsp;% des Umsatzes gehen durch Medicare-Erstattung. Die LCD-Verwirrung vom Dezember 2025 hat bereits gewirkt: Q1 2026 wird laut Management rund 50&nbsp;% unter Vorjahr liegen. Management-Guidance 2026: 350-420 Mio. USD Umsatz – Rückgang 25-38&nbsp;% gegenüber 2025.</li>
-      <li><strong>Marktstruktur-Risiko nach dem Boom.</strong> Der Q4-Anstieg von +78&nbsp;% reflektiert auch, dass Anbieter ohne PMA-Zulassung Ende 2025 vom Markt gefegt wurden. Dieser Effekt ist nicht wiederholbar und macht die Vergleichsbasis 2026 schwer schlagbar.</li>
+      <li><strong>CMS-Abhängigkeit ist existenziell.</strong> Mehr als 80 % des Umsatzes gehen durch Medicare-Erstattung. Die LCD-Verwirrung vom Dezember 2025 hat bereits gewirkt: Q1 2026 wird laut Management rund 50 % unter Vorjahr liegen. Management-Guidance 2026: 350-420 Mio. USD Umsatz – Rückgang 25-38 % gegenüber 2025.</li>
+      <li><strong>Marktstruktur-Risiko nach dem Boom.</strong> Der Q4-Anstieg von +78 % reflektiert auch, dass Anbieter ohne PMA-Zulassung Ende 2025 vom Markt gefegt wurden. Dieser Effekt ist nicht wiederholbar und macht die Vergleichsbasis 2026 schwer schlagbar.</li>
       <li><strong>Negatives Cashflow-Risiko in der Übergangsphase.</strong> Bei Umsatzrückgang ~ein Drittel in 2026, hohem Forderungsbestand und laufenden Investitionen (neues Rhode-Island-Werk) kann die Cash-Reserve unter Druck geraten.</li>
-      <li><strong>Produkt- und Technologiekonzentration.</strong> &gt; 90&nbsp;% Umsatz am Advanced-Wound-Care. Ein Produktrückruf oder klinisches Sicherheitsproblem bei Apligraf oder PuraPly hätte materielle Auswirkungen.</li>
+      <li><strong>Produkt-Konzentration.</strong> &gt; 90 % Umsatz am Advanced-Wound-Care. Ein Produktrückruf oder klinisches Sicherheitsproblem bei Apligraf oder PuraPly hätte materielle Auswirkungen.</li>
       <li><strong>FDA-Regulierung und Produktionsrisiken.</strong> Neues Werk in Rhode Island für Dermagraft-Relaunch birgt Ausführungsrisiken. FDA-Überwachung für Biologika ist intensiv; jede Warning Letter kann Lieferverzögerungen auslösen.</li>
     </ul>
   </div>
 
   <div class="verdict">
     <h3>Fazit</h3>
-    <p>ORGO ist kein statistischer Ausreißer. Der Turnaround ist operativ verankert: echte Marktanteilsgewinne, stabile 76-78&nbsp;% Bruttomarge, schuldenfreie Bilanz. PMA-Zulassungen und Direktvertrieb sind strukturelle Vorteile in einem von CMS bereinigten Markt.</p>
+    <p>ORGO ist kein statistischer Ausreißer. Der Turnaround ist operativ verankert: echte Marktanteilsgewinne, stabile 76-78 % Bruttomarge, schuldenfreie Bilanz. PMA-Zulassungen und Direktvertrieb sind strukturelle Vorteile in einem von CMS bereinigten Markt.</p>
     <p>Das Hauptrisiko ist bekannt und bereits eingepreist: 2026 wird das Übergangsjahr. Die entscheidende Frage: Behält Management recht, dass 2026 das Tal ist und die Pipeline 2027/28 ein neues Wachstumskapitel aufschlägt? Geeignet für Small-Cap-tolerante Anleger mit 2-3-Jahres-Horizont, die CMS-Regulierung verfolgen. <strong>Beobachtungspunkt:</strong> Q2/Q3 2026-Zahlen und ReNu-BLA-Einreichung.</p>
   </div>
 
   <div class="page-foot"><span>100-Bagger Screener · Q2 2026 · Kandidat 01</span><span>ORGO · Organogenesis Holdings</span></div>
 </section>
 
-<!-- ========== IPI ========== -->
+<!-- SNWV -->
 <section class="page">
-  <div class="page-head">
-    <span class="issue">Kandidat 02 · Score 80/100 · Quality bestanden</span>
-    <span class="meta">Basic Materials · Kalidünger</span>
-  </div>
+  <div class="page-head"><span class="issue">Kandidat 02 · Score 78/100 · Alle Filter bestanden</span><span class="meta">Healthcare · Medizintechnik</span></div>
   <div class="company-hero">
     <div>
-      <div class="meta-line">Basic Materials · Kalidünger</div>
-      <h1>Intrepid Potash, Inc.</h1>
-      <div class="ticker">NYSE: IPI · 36,77 USD</div>
-    </div>
-    <div class="quality-badge">Quality<br>✓ PASS</div>
-    <div class="score-badge"><div class="num">80</div><div class="label">Total Score</div></div>
-  </div>
-  <div class="fact-bar">
-    <div class="fact"><div class="k">Market Cap</div><div class="v">494 Mio $</div></div>
-    <div class="fact"><div class="k">TTM EPS</div><div class="v">+0,85 $</div></div>
-    <div class="fact"><div class="k">MRQ EPS</div><div class="v">+0,49 $</div></div>
-    <div class="fact"><div class="k">TTM KGV</div><div class="v">43,3</div></div>
-    <div class="fact"><div class="k">Umsatz yoy</div><div class="v">+36 %</div></div>
-    <div class="fact"><div class="k">Vol/Tag</div><div class="v">12,7 Mio $</div></div>
-  </div>
-  <div class="score-bars">
-    <h3>Score-Komponenten</h3>
-    <div class="bar-row"><span class="label">EPS-Beschleunigung</span><div class="bar-track"><div class="bar-fill" style="width: 71%;"></div></div><span class="val">25/35</span></div>
-    <div class="bar-row"><span class="label">PEG-Ratio</span><div class="bar-track"><div class="bar-fill" style="width: 100%;"></div></div><span class="val">25/25</span></div>
-    <div class="bar-row"><span class="label">Market Cap Smallness</span><div class="bar-track"><div class="bar-fill" style="width: 33%;"></div></div><span class="val">5/15</span></div>
-    <div class="bar-row"><span class="label">Umsatzwachstum</span><div class="bar-track"><div class="bar-fill" style="width: 100%;"></div></div><span class="val">15/15</span></div>
-    <div class="bar-row"><span class="label">Turnaround-Bonus</span><div class="bar-track"><div class="bar-fill" style="width: 100%;"></div></div><span class="val">10/10</span></div>
-  </div>
-
-  <h2>Firmenvorstellung</h2>
-  <p>Intrepid Potash ist der <strong>einzige Produzent von Kalidüngemitteln mit Sitz in den USA</strong>. Drei Bergbaustandorte: Carlsbad (New Mexico), Moab und Wendover (beide Utah). Die Produktion deckt rund 4&nbsp;% des US-amerikanischen Kaliumbedarfs, auf globaler Ebene entspricht das etwa 0,5&nbsp;%. Zum Vergleich: Nutrien (Kanada) kontrolliert rund 20&nbsp;% der Weltproduktionskapazität.</p>
-  <p>Beim IPO im April 2008 schoss der Kurs auf ein Allzeithoch von umgerechnet rund 762 USD (vor dem 1:10-Reverse-Split 2020 rund 76 USD). Es folgte ein Jahrzehnt des strukturellen Abschwungs mit fallenden Preisen und Verlusten, Tiefpunkt April 2020 bei 6 USD. Der aktuelle Kurs von 36,77 USD ist das Ergebnis eines echten operativen Turnarounds.</p>
-
-  <h2>Geschäftsmodell – drei Segmente, zwei relevant</h2>
-  <p>Das <strong>Potash-Segment</strong> (39&nbsp;% des Umsatzes) produziert Muriat of Potash (MOP, Standarddünger für Mais, Soja, Weizen). Nach dem Preis-Schock 2022 (über 800 USD/Tonne) kollabierten die Preise 2023/24 auf 290-310 USD und stabilisierten sich 2025 bei durchschnittlich 353 USD/Tonne. Das <strong>Trio-Segment</strong> (48&nbsp;% des Umsatzes, inzwischen Hauptgeschäft) produziert Langbeinit – ein Spezialdünger mit Kalium, Schwefel und Magnesium, nur an wenigen Orten weltweit vorkommend. Höhere Preissetzungsmacht, Rekordabsatz 2025 von 303.000 Tonnen bei 367 USD/Tonne (+20&nbsp;% Preis yoy). Das <strong>Oilfield-Solutions-Segment</strong> wurde im April 2026 für 70 Mio. USD an HydroSource Logistics verkauft – Intrepid konzentriert sich künftig ausschließlich auf Dünger und die Lithium-Option.</p>
-
-  <div class="page-foot"><span>100-Bagger Screener · Q2 2026 · Kandidat 02</span><span>IPI · Intrepid Potash</span></div>
-</section>
-
-<section class="page">
-  <div class="page-head">
-    <span class="issue">Kandidat 02 · IPI</span>
-    <span class="meta">Einordnung &amp; Lithium-Option</span>
-  </div>
-
-  <h2>Einordnung der Fundamentaldaten</h2>
-  <p>Das extreme EPS-Wachstum (+545&nbsp;% TTM) ist primär ein <strong>Basiseffekt</strong>: 2024 verbuchte Intrepid einen Nettoverlust von 212,8 Mio. USD, davon aber 199 Mio. als nicht zahlungswirksame Wertberichtigung auf Steuererstattungsansprüche (deferred tax assets) – bilanzieller Effekt, keine operative Schwäche. Der bereinigte Nettoverlust 2024 betrug nur −3,7 Mio. USD.</p>
-  <p><strong>Echte operative Verbesserung:</strong> Gesamtumsatz 254,7 → 298,3 Mio. USD (+17&nbsp;%). Bereinigtes EBITDA +80&nbsp;% auf 63,1 Mio. USD. Operativer Cashflow 55,8 Mio. USD. Das Unternehmen ist <strong>schuldenfrei</strong>, Jahresende-Cash 83,5 Mio. USD (plus 70 Mio. USD aus dem Ranch-Verkauf im April 2026). Keine Verwässerung, Aktienanzahl weitgehend stabil. Für 2026 prognostiziert das Management Potash 270-285 Tsd. Tonnen, Trio 285-300 Tsd. Tonnen. CapEx 40-50 Mio. USD, davon bedeutender Teil für Lithium-Infrastruktur in Wendover.</p>
-
-  <h2>Warum der Screener sie gefunden hat</h2>
-  <p>Klassischer Turnaround: niedrige Basis nach Krisenjahren, echte operative Erholung, Schuldenfreiheit, Sondersituation durch Ranch-Verkauf. PEG dank niedriger Basis rechnerisch günstig. Alle fünf Quality-Gates bestanden.</p>
-  <p><strong>Ehrlich: IPI ist kein klassischer 100-Bagger-Kandidat.</strong> Ein Zehntausendfacher aus diesem Niveau wäre nur möglich, wenn das Unternehmen seinen Charakter fundamental ändert. Die <strong>Lithium-Option</strong> in Wendover (119.000 Tonnen Lithiumkarbonat-Äquivalent Ressource, geplante Jahreskapazität 5.000 Tonnen battery-grade Lithiumkarbonat als erste ihrer Art aus industriellem Nebenstrom in den USA, Machbarkeitsstudie Ende 2026) ist der denkbare Game-Changer. Als reiner Dünger-Produzent bleibt IPI ein <strong>Zykliker</strong>: gute Jahre bei hohen Preisen, Verluste bei fallenden.</p>
-
-  <h2>Risiken</h2>
-  <div class="risk-list">
-    <ul>
-      <li><strong>Potash-Preisvolatilität ist das Kernrisiko.</strong> Nutrien und Mosaic dominieren den Markt; IPI hat 0,5&nbsp;% Weltmarktanteil und keine Preissetzungsmacht. Ein erneuter Preisverfall wie 2023 (&gt; 800 USD auf &lt; 300 USD/Tonne in 18 Monaten) würde IPI unmittelbar in die Verlustzone drücken.</li>
-      <li><strong>Wetterabhängigkeit der Produktion.</strong> Intrepid fördert über solare Verdunstung in Salzseen. Feuchte Winter können Produktion empfindlich stören. Management warnt bereits für 2026 vor möglichen Potash-Produktionsrückgängen.</li>
-      <li><strong>Wegfall des Oilfield-Segments.</strong> Mit dem South-Ranch-Verkauf (April 2026) verlieren sie 14,4 Mio. USD Jahresumsatz (~5&nbsp;%) und den Puffer, den dieses Segment bei schwachen Düngerpreisen bot.</li>
-      <li><strong>Lithium-Projekt ist zweischneidig.</strong> Könnte IPI transformieren – oder sich als teuer und unrentabel erweisen. Der Lithiumpreis ist seit 2022 um &gt; 80&nbsp;% gefallen. Bis zur Machbarkeitsstudie (Ende 2026) sind Wirtschaftlichkeitsaussagen vorläufig.</li>
-      <li><strong>Preisnehmer-Position.</strong> Intrepid ist preisnehmend, nicht preissetzend. Welche Investitionen auch geplant werden – die Produktpreise bestimmt der Weltmarkt.</li>
-    </ul>
-  </div>
-
-  <div class="verdict">
-    <h3>Fazit</h3>
-    <p>Echte operative Erholung: schuldenfrei, cash-reich, wachsende Trio-Margen, transformativer Asset-Verkauf im Rücken, früher Lithium-Optionswert am Horizont. Für einen konservativen Rohstoffinvestor mit 2-4-Jahres-Horizont, der den nächsten Potash-Preiszyklus mitspielen will, ist IPI interessant – die Bilanz ist robust genug auch für schlechte Jahre.</p>
-    <p>Wer auf echten 100-Bagger hofft, braucht eine <strong>Doppelwette</strong>: höhere Potash-/Trio-Preise UND erfolgreiche Lithium-Kommerzialisierung. Beides möglich, aber keine hohe Wahrscheinlichkeit. Realistisches Renditeziel: zyklische 3-5x, falls zum richtigen Zeitpunkt gekauft. Kein strukturelles Wachstumsunternehmen à la Software oder Biotech. <strong>Beobachtungspunkt:</strong> Lithium-Machbarkeitsstudie Ende 2026 und Potash-Preisentwicklung.</p>
-  </div>
-
-  <div class="page-foot"><span>100-Bagger Screener · Q2 2026 · Kandidat 02</span><span>IPI · Intrepid Potash</span></div>
-</section>
-
-<!-- ========== CZWI ========== -->
-<section class="page">
-  <div class="page-head">
-    <span class="issue">Kandidat 03 · Score 78/100 · Quality bestanden</span>
-    <span class="meta">Financial Services · Community Bank</span>
-  </div>
-  <div class="company-hero">
-    <div>
-      <div class="meta-line">Financial Services · Community Bank</div>
-      <h1>Citizens Community Bancorp</h1>
-      <div class="ticker">NASDAQ: CZWI · 20,52 USD</div>
+      <div class="meta-line">Healthcare · Medizintechnik</div>
+      <h1>SANUWAVE Health, Inc.</h1>
+      <div class="ticker">NASDAQ: SNWV · 19,70 USD</div>
     </div>
     <div class="quality-badge">Quality<br>✓ PASS</div>
     <div class="score-badge"><div class="num">78</div><div class="label">Total Score</div></div>
   </div>
   <div class="fact-bar">
-    <div class="fact"><div class="k">Market Cap</div><div class="v">198 Mio $</div></div>
-    <div class="fact"><div class="k">TTM EPS</div><div class="v">+1,46 $</div></div>
-    <div class="fact"><div class="k">MRQ EPS</div><div class="v">+0,44 $</div></div>
-    <div class="fact"><div class="k">TTM KGV</div><div class="v">14,1</div></div>
-    <div class="fact"><div class="k">g₀ EPS yoy</div><div class="v">+63 %</div></div>
-    <div class="fact"><div class="k">Vol/Tag</div><div class="v">712 Tsd $</div></div>
+    <div class="fact"><div class="k">Market Cap</div><div class="v">169 Mio $</div></div>
+    <div class="fact"><div class="k">TTM EPS</div><div class="v">+0,41 $</div></div>
+    <div class="fact"><div class="k">MRQ EPS</div><div class="v">+0,03 $</div></div>
+    <div class="fact"><div class="k">TTM KGV</div><div class="v">48,1</div></div>
+    <div class="fact"><div class="k">Umsatz yoy</div><div class="v">+35 %</div></div>
+    <div class="fact"><div class="k">Vol/Tag</div><div class="v">1,59 Mio $</div></div>
   </div>
   <div class="score-bars">
     <h3>Score-Komponenten</h3>
-    <div class="bar-row"><span class="label">EPS-Beschleunigung</span><div class="bar-track"><div class="bar-fill" style="width: 100%;"></div></div><span class="val">35/35</span></div>
+    <div class="bar-row"><span class="label">EPS-Beschleunigung</span><div class="bar-track"><div class="bar-fill" style="width: 71%;"></div></div><span class="val">25/35</span></div>
     <div class="bar-row"><span class="label">PEG-Ratio</span><div class="bar-track"><div class="bar-fill" style="width: 100%;"></div></div><span class="val">25/25</span></div>
     <div class="bar-row"><span class="label">Market Cap Smallness</span><div class="bar-track"><div class="bar-fill" style="width: 67%;"></div></div><span class="val">10/15</span></div>
     <div class="bar-row"><span class="label">Umsatzwachstum</span><div class="bar-track"><div class="bar-fill" style="width: 53%;"></div></div><span class="val">8/15</span></div>
-    <div class="bar-row"><span class="label">Turnaround-Bonus</span><div class="bar-track"><div class="bar-fill" style="width: 0%;"></div></div><span class="val">0/10</span></div>
+    <div class="bar-row"><span class="label">Turnaround-Bonus</span><div class="bar-track"><div class="bar-fill" style="width: 100%;"></div></div><span class="val">10/10</span></div>
   </div>
 
   <h2>Firmenvorstellung</h2>
-  <p>Citizens Community Bancorp ist die Holding der Citizens Community Federal N.A., einer national zugelassenen Community Bank mit Hauptsitz in Altoona, Wisconsin. 21 Filialen in der Chippewa Valley Region in Wisconsin sowie Mankato und Twin Cities in Minnesota. Wurzeln bis 1938 (Altoona Federal Savings), heutige Konzernstruktur seit 2003. Bilanzsumme 1,782 Mrd. USD.</p>
-  <p>Was Community Banks auszeichnet, ist das <strong>lokale Beziehungsgeschäft</strong>: Man kennt die Kunden persönlich, die Familienbetriebe, Landwirte und Mittelständler in der Region. Entscheidungen fallen vor Ort. Seit 2018 hat die Bank ihre Präsenz durch gezielte Akquisitionen ausgebaut (United Bank 2018, F&amp;M Bancorp of Tomah 2019).</p>
+  <p>SANUWAVE Health, Sitz Eden Prairie Minnesota, ist Medizintechnik-Unternehmen mit Fokus auf nicht-invasive Wundbehandlung durch <strong>Ultraschallenergie</strong>. Kernprodukt: <strong>UltraMIST</strong> – ein nicht-kontaktbasiertes Niederfrequenz-Ultraschallgerät, das chronische Wunden durch akustische Schallwellen stimuliert und die körpereigene Wundheilung beschleunigt. Hauptindikationen: diabetische Fußgeschwüre, Druckgeschwüre, venöse Beinulzera.</p>
+  <p>Die Unternehmensgeschichte ist eine klassische Leidensgeschichte: Nach der UltraMIST-Übernahme von Celularity 2020 folgten Default auf Wandelanleihen, explodierende Schulden, Aktienkurs nahe null. Im Oktober 2024 vollzog das Management einen extremen <strong>1:375 Reverse-Split</strong> (1,18 Mrd. Aktien → 3,15 Mio.), tauschte 43,2 Mio. USD Wandelanleihen um, sicherte 10,3 Mio. USD frisches Kapital. Am 7. März 2025: Uplisting zur NASDAQ – symbolischer Meilenstein der Sanierung.</p>
+  <p>CEO Morgan Frank (seit Mai 2023) hat das Vertriebsteam von praktisch null neu aufgebaut. Rekordquartal auf Rekordquartal folgt seither. Ein 140-Patent-Portfolio schützt die Technologie.</p>
 
-  <h2>Geschäftsmodell</h2>
-  <p>Klassisches Community-Bank-Geschäft: Einlagen nehmen, Kredite vergeben, von der <strong>Nettozinsmarge</strong> (NIM) leben. Q4 2025 NIM: 3,15&nbsp;% (Jahresdurchschnitt 3,12&nbsp;%). Deutliche Verbesserung gegenüber 2,73&nbsp;% in 2024. Branchendurchschnitt: 3,44&nbsp;% – noch Luft nach oben.</p>
-  <p>Kreditbuch 1,343 Mrd. USD, klar gewerblich geprägt: Gewerbeimmobilien 683 Mio., Mehrfamilienhäuser 246 Mio., Gewerbe/Landwirtschaft 139 Mio., Bau 76 Mio., Agrarimmobilien 69 Mio., Wohnhypotheken 124 Mio. Loan-to-Deposit-Ratio: ~88&nbsp;% (gesundes Niveau). Dividende ab Q1 2026 vierteljährlich 0,105 USD (annualisiert 0,42 USD / ~2&nbsp;% Rendite). 5&nbsp;%-Aktienrückkaufprogramm aktiv.</p>
-
-  <div class="page-foot"><span>100-Bagger Screener · Q2 2026 · Kandidat 03</span><span>CZWI · Citizens Community Bancorp</span></div>
+  <div class="page-foot"><span>100-Bagger Screener · Q2 2026 · Kandidat 02</span><span>SNWV · SANUWAVE Health</span></div>
 </section>
 
 <section class="page">
-  <div class="page-head">
-    <span class="issue">Kandidat 03 · CZWI</span>
-    <span class="meta">Einordnung &amp; Realistische Erwartung</span>
-  </div>
+  <div class="page-head"><span class="issue">Kandidat 02 · SNWV</span><span class="meta">Razor-and-Blade &amp; Marktpotenzial</span></div>
+
+  <h2>Geschäftsmodell: Razor-and-Blade</h2>
+  <p>SANUWAVE operiert nach dem klassischen <strong>Razor-and-Blade-Modell</strong>. Das UltraMIST-Gerät wird zum Listenpreis von ca. 35.000 USD an Wundversorgungszentren, Krankenhäuser und Arztpraxen verkauft. Für jeden einzelnen Behandlungsvorgang ist ein <strong>Einmal-Verbrauchsapplikator</strong> nötig, der zu ca. 100 USD verkauft wird. Nach rund 85 Prozeduren hat der Arzt sein Gerät refinanziert – das geht bei aktiven Praxen in wenigen Wochen. Ab dann läuft der Consumable-Umsatz praktisch automatisch weiter.</p>
+  <p>Die Erstattungsstruktur macht das Modell für Ärzte attraktiv: CMS erstattet unter dem CPT-Code 97610 zwischen 400 und 700 USD pro Behandlung (Durchschnitt ~420 USD). Dieser Code wurde <strong>spezifisch für UltraMIST-Therapie</strong> eingeführt und ist exklusiv mit der Technologie verknüpft. Für 2026 hat CMS die Erstattungsraten <strong>faktisch unverändert</strong> gelassen – wichtiges Stabilitätssignal. 99 % des Umsatzes stammen aus UltraMIST-Geräten und Verbrauchsmaterialien. FDA-zugelassen, 140 Patente.</p>
 
   <h2>Einordnung der Fundamentaldaten</h2>
-  <p>Der EPS-Beschleuniger ist real, hat aber eine nachvollziehbare Erklärung. In Q3/Q4 2024 lag das EPS noch bei 0,27-0,37 USD, im Gesamtjahr 2025 kletterte es auf 1,46 USD. Haupttreiber: <strong>NIM-Sprung</strong> von 2,73&nbsp;% auf 3,12&nbsp;% (+39 Basispunkte) durch nachlassende Zinskonkurrenz auf der Einlagenseite nach den Fed-Zinssenkungen 2024/25.</p>
-  <p>Zweiter Treiber: deutlich gesunkene Risikovorsorge (nur 0,20 Mio. USD in Q4 2025 vs. 0,65 Mio. USD in Q3). Diese Niedrig-Rückstellungen sind <strong>nicht dauerhaft</strong>. NPL-Quote 1,18&nbsp;% (akzeptabel), aber Special Mention Loans stiegen in Q2 2025 auf 23,2 Mio. USD – Frühwarnsignal. ROA 0,97&nbsp;%, ROE 9,05&nbsp;%, Effizienzquote 68&nbsp;% (Branchenstandard 55-60&nbsp;%, noch Verbesserungspotenzial).</p>
-  <p>Die <strong>Q1 2026-Zahlen dämpfen die Euphorie</strong>: EPS fiel auf 0,32 USD (Q1 2025: 0,39 USD). Konsens 2026: 1,31 USD – leichter Rückgang gegenüber 1,46 USD in 2025. Der NIM-Tailwind lässt bereits nach.</p>
+  <p>Jahresumsatz 2025: 44,1 Mio. USD (+35 % yoy). Q4 2025 war mit 13,4 Mio. USD Rekordquartal (+30 % yoy). 255 UltraMIST-Einheiten allein in Q4 verkauft (+72 % yoy). <strong>Adjusted EBITDA 13,6 Mio. USD</strong>. Bruttomarge ~77 %, mit Luft nach oben Richtung 80 %. Für 2026: Guidance 51-55 Mio. USD Umsatz (+16-25 %). Q1 2026 läuft mit 9,6-9,7 Mio. USD etwas weicher – Management erklärt das mit LCD-Marktturbulenzen bei Skin Substitutes, die kurzfristig Geräte-Kaufentscheidungen verzögerten.</p>
+  <p><strong>Wichtiger Warnsignal-Check:</strong> Im 10-K für 2025 musste SANUWAVE Fehler bei der Verbuchung von Umsatzsteuerverbindlichkeiten und Extended-Warranty-Erlösen einräumen (zusätzliche Verbindlichkeiten 4,9-5,2 Mio. USD) sowie <strong>Material Weaknesses in internen Kontrollen</strong> offenlegen. Governance-Warnung für ein Unternehmen dieser Größe. Cash-Position Ende 2025: 12 Mio. USD.</p>
 
   <h2>Warum der Screener sie gefunden hat</h2>
-  <p>Score 78/100 ist verdient: alle Quality-Gates bestanden, TTM-KGV 14 günstig, Kurs-Buchwert ~1,2-1,3, EPS-Beschleunigung technisch perfekt. Aber ehrliche Einordnung: <strong>CZWI ist kein 100-Bagger-Kandidat – das muss klar gesagt werden.</strong></p>
-  <p>Community Banks sind strukturell nicht auf 100-fache Renditen ausgelegt. Regionaler Fokus begrenzt Wachstum, fremdkapitalintensives Geschäftsmodell, regulatorische Schwellenwerte wirken als Wachstumsbremsen (steigende Compliance-Kosten bei 1/3/10 Mrd. USD Bilanzsumme). Was der Screener hier gefunden hat, ist kein verkanntes Wachstumsmonster, sondern ein <strong>solider, günstig bewerteter Substanzwert</strong> mit beschleunigender Ertragsdynamik – klassisch für den Zyklusturn einer Community Bank. Realistisches Renditeziel: 2-3x über 5-7 Jahre bei günstigen Bedingungen.</p>
+  <p>Alle Filterstufen bestanden: EPS-Trendwende von -117 % auf +100 % Wachstum, Umsatz +35 %, proprietäres Produkt mit hoher Kunden-Klebrigkeit durch Consumable-Kette. <strong>Skalierbarkeit strukturell intakt:</strong> Mehr Geräte im Feld = mehr Consumable-Umsatz ohne linearen Kostenaufbau. Das Vertriebsteam umfasst Ex-Abiomed-Führungskräfte (Abiomed von 15 Mio. → 400 Mio. USD Umsatz skaliert, dann für 16,6 Mrd. USD an J&amp;J verkauft). <strong>TAM von 45 Mrd. USD</strong> im US-Wundpflegemarkt, SANUWAVE penetriert gerade 1 %. Das ist der strukturelle 100-Bagger-Rahmen.</p>
 
   <h2>Risiken</h2>
   <div class="risk-list">
     <ul>
-      <li><strong>Zinsrisiko.</strong> Die NIM-Verbesserung ist Produkt des aktuellen Zinszyklus. Weitere Fed-Senkungen würden die Marge wieder komprimieren. Q4 2025 zeigt bereits erste Kompression (3,15&nbsp;% vs. 3,27&nbsp;% in Q2 2025). Konsens erwartet 2026 sinkende Erträge.</li>
-      <li><strong>Kreditrisiko und Gewerbeimmobilien-Konzentration.</strong> 51&nbsp;% des Kreditbuchs in Gewerbeimmobilien. In einem Abschwung oder bei steigenden Leerständen liegen hier die größten Verlustpotenziale. Plus Agrar-Exposure (Wisconsin). Gestiegene Special Mention Loans verdienen Aufmerksamkeit.</li>
-      <li><strong>Geographische Konzentration.</strong> 21 Filialen in zwei Bundesstaaten. Jede größere wirtschaftliche Verschlechterung in der oberen Mittleren Region trifft CZWI überproportional.</li>
-      <li><strong>Regulatorischer Druck.</strong> Bei &gt; 1 Mrd. USD Bilanzsumme steigen Compliance-Kosten. Fixkosten für Regulierung, Technologie, Cybersicherheit wachsen schneller als die Bilanzsumme – drückt Effizienzquote, begrenzt Skalierbarkeit.</li>
-      <li><strong>Fintech-Wettbewerb und steigender Short Interest.</strong> Online-Banken und Fintech-Plattformen ziehen jüngere Kunden ab. Short Interest stieg im März 2026 um 33,7&nbsp;% – institutionelle Marktteilnehmer beurteilen das kurzfristige Momentum kritisch.</li>
+      <li><strong>CMS-Erstattungsrisiko.</strong> CPT-Code 97610 ist aktuell stabil; das Risiko liegt im breiteren Reflex-Risiko falls CMS evidenzbasierte Wundtherapien generell überdenkt. Indirekter Rückenwind: Die massive Kürzung bei Skin Substitutes (-19 Mrd. USD ab 2026) macht UltraMIST für Ärzte attraktiver.</li>
+      <li><strong>Restatement &amp; Material Weaknesses.</strong> Offengelegte Kontrollschwächen im 10-K sind ein echtes Governance-Warnsignal. Remediation bindet Zeit und Management-Kapazität.</li>
+      <li><strong>Single-Product-Konzentration.</strong> 99 % des Umsatzes aus einer Produktlinie. FDA-Problem, klinischer Rückschlag oder überlegenes Konkurrenzprodukt wären gravierend.</li>
+      <li><strong>Verwässerungshistorie.</strong> Der 1:375 Reverse-Split illustriert, wie aggressiv historisch Wandelanleihen genutzt wurden. Aktuelle Aktienanzahl ~8,5 Mio. Weitere Verwässerung möglich bei Kapitalbedarf für Vertriebsskalierung.</li>
+      <li><strong>Wettbewerbseintritt möglich.</strong> Einziger direkter CPT-97610-Konkurrent (Arabella) hat unter 2 Mio. USD Jahresumsatz – aktuell kein relevanter Gegner. Das kann sich ändern, wenn größere Medtechs die Marktattraktivität erkennen.</li>
     </ul>
   </div>
 
   <div class="verdict">
     <h3>Fazit</h3>
-    <p>CZWI ist <strong>kein 100-Bagger</strong> – das muss klar gesagt werden. Das Geschäftsmodell einer Community Bank mit 21 Filialen ist auf regionalen Beziehungsaufbau optimiert, nicht auf exponentielle Skalierung.</p>
-    <p>Was CZWI stattdessen bietet: gut geführtes, profitables Institut mit beschleunigender Ertragsentwicklung, moderater Bewertung (KGV 14, KBV 1,2), frischer Quartalsdividende (~2&nbsp;% Rendite) und aktivem Aktienrückkauf. Geeignet für Value-Investoren mit 5-7-Jahres-Horizont, die eine Finanzsektor-Beimischung wollen. Realistisches Renditeziel: Faktor 2-3 gegenüber aktuellem Kurs, bei stabiler NIM, sauberem Kreditbuch und möglicher M&amp;A-Prämie (Community Bank-Übernahmen 1,3-1,8x Buchwert). <strong>Beobachtungspunkt:</strong> Special Mention Loans und Q2/Q3 2026-Trend.</p>
+    <p>SANUWAVE ist ein echter Turnaround – Geschäftsmodell funktioniert, Erstattungsposition stabil, Management hat bewiesen, einen fast toten Penny-Stock in ein profitables NASDAQ-Unternehmen zu verwandeln. Der Wettbewerbsgraben durch exklusiven CPT-Code und Patentportfolio ist real.</p>
+    <p>Der strukturelle 100-Bagger-Rahmen steht: 1 % Penetration eines 45-Mrd.-USD-Marktes, Razor-and-Blade mit Consumable-Klebrigkeit, skalierbare Kostenbasis, Ex-Abiomed-Vertrieb. Ein 100x aus 169 Mio. USD Market Cap bedeutet 17 Mrd. USD – erfordert Dekade nachhaltiger Exekution. Realistisch eher 5-10x in 5 Jahren, darüber hinaus offen. Für Anleger mit langem Horizont, Tolerance für Governance-Risiken und Biotech/Medtech-Verständnis eine Position wert. <strong>Beobachtungspunkt:</strong> Q1/Q2 2026-Zahlen, Remediation der Material Weaknesses, Vertriebsteam-Skalierung.</p>
   </div>
 
-  <div class="page-foot"><span>100-Bagger Screener · Q2 2026 · Kandidat 03</span><span>CZWI · Citizens Community Bancorp</span></div>
+  <div class="page-foot"><span>100-Bagger Screener · Q2 2026 · Kandidat 02</span><span>SNWV · SANUWAVE Health</span></div>
 </section>
 
+<!-- DISCLAIMER -->
 <section class="page">
   <div class="page-head"><span class="issue">100-Bagger Screener · Q2 2026</span><span class="meta">Rechtliches</span></div>
   <h1>Wichtige Hinweise &amp; Disclaimer</h1>
   <div class="disclaimer">
-    <p><strong>Keine Anlageberatung.</strong> Die in diesem Report vorgestellten Aktien wurden auf Basis eines systematischen, quantitativen Screeners ausgewählt, der historische Muster aus Tony's 100-Bagger-Studie abbildet. Er stellt <strong>keine</strong> individuelle Anlageempfehlung dar. Alle Einschätzungen sind allgemeiner Natur und berücksichtigen weder deine persönliche Situation, deine finanziellen Ziele noch deine Risikotragfähigkeit.</p>
-    <p><strong>Hohes Verlustrisiko bei Small-Caps.</strong> Die hier gezeigten Unternehmen haben Marktkapitalisierungen unter 500 Mio. USD. Solche Aktien sind oft dünn gehandelt, stark schwankungsanfällig und können binnen Stunden 30&nbsp;% oder mehr verlieren. Einzelne Positionen können bis zum Totalverlust führen. Nutze niemals Geld, das du kurzfristig brauchst.</p>
-    <p><strong>Quality-Filter ist keine Erfolgsgarantie.</strong> Die in dieser Ausgabe vorgestellten Kandidaten haben einen zusätzlichen fünfstufigen Qualitätsfilter bestanden, der grobe statistische Artefakte ausschließt. Das bedeutet: Das Gewinnwachstum basiert auf realer Ertragskraft, nicht auf Einmaleffekten. Es bedeutet <strong>nicht</strong>, dass diese Unternehmen tatsächlich zu 100-Baggern werden – Tony's Muster sind Hypothesen, keine Gewissheiten.</p>
-    <p><strong>Datenquellen &amp; Aktualität.</strong> Die Fundamentaldaten stammen aus öffentlichen Quellen (SEC EDGAR, Unternehmenspräsentationen, yfinance). Die Lage bei Small-Caps kann sich täglich ändern. Prüfe vor jeder Entscheidung die aktuelle Nachrichtenlage.</p>
+    <p><strong>Keine Anlageberatung.</strong> Die in diesem Report vorgestellten Aktien wurden auf Basis eines systematischen, quantitativen Screeners und einer anschließenden qualitativen Fundamentalanalyse ausgewählt, die historische Muster aus Tony's 100-Bagger-Studie abbildet. Er stellt <strong>keine</strong> individuelle Anlageempfehlung dar. Alle Einschätzungen sind allgemeiner Natur und berücksichtigen weder deine persönliche Situation, deine finanziellen Ziele noch deine Risikotragfähigkeit.</p>
+    <p><strong>Hohes Verlustrisiko bei Small-Caps.</strong> Die hier gezeigten Unternehmen haben Marktkapitalisierungen unter 500 Mio. USD. Solche Aktien sind oft dünn gehandelt, stark schwankungsanfällig und können binnen Stunden 30 % oder mehr verlieren. Einzelne Positionen können bis zum Totalverlust führen. Nutze niemals Geld, das du kurzfristig brauchst.</p>
+    <p><strong>Drei-Stufen-Filter ist keine Erfolgsgarantie.</strong> Die in dieser Ausgabe vorgestellten Kandidaten haben (1) Tony's fünf Muster, (2) fünf Quality-Gates, (3) eine Business-Model-Kuratierung und (4) eine explizite Fazit-Prüfung auf 100-Bagger-Plausibilität bestanden. Das bedeutet: Das Gewinnwachstum basiert auf realer Ertragskraft, und das Geschäftsmodell ist strukturell nicht auf 2-5x begrenzt. Es bedeutet <strong>nicht</strong>, dass diese Unternehmen tatsächlich zu 100-Baggern werden.</p>
     <p><strong>Survivorship Bias.</strong> Tony's Studie basiert auf bereits bekannten 100-Baggern – also auf Gewinnern. Viele Aktien mit ähnlichen Mustern wurden nicht zu 100-Baggern, sondern zu Totalverlusten. Der Screener findet mögliche Kandidaten, keine Gewissheiten.</p>
+    <p><strong>Datenquellen &amp; Aktualität.</strong> Die Fundamentaldaten stammen aus öffentlichen Quellen (SEC EDGAR, Unternehmenspräsentationen, yfinance). Bei Small-Caps kann sich die Lage täglich ändern. Prüfe vor jeder Entscheidung die aktuelle Nachrichtenlage.</p>
     <p><strong>Empfohlene Eigenrecherche.</strong> Nutze diesen Report als strukturierten Ausgangspunkt. Bevor du investierst, schau dir den letzten 10-K/10-Q-Bericht selbst an, höre den letzten Earnings Call, prüfe Insiderkäufe und lies unabhängige Analystenkommentare. Kein Screener ersetzt dein eigenes Urteil.</p>
   </div>
   <div class="page-foot"><span>100-Bagger Screener · Q2 2026</span><span>meine-geldseite.de</span></div>

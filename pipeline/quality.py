@@ -2,10 +2,11 @@
 Quality overlay filters for the 100-bagger screener.
 
 Runs AFTER the base hard filter and scoring. Distinguishes 'real operational
-quality' from 'statistical artefacts' (e.g. one-time license payments that
-spike a single quarter's EPS).
+quality' from 'statistical artefacts' AND rules out business models that are
+structurally incapable of 100x returns (banks, utilities, REITs, pure commodity
+cyclicals).
 
-Five quality gates (all must pass):
+Six quality gates (all must pass):
   Q1: TTM EPS positive (not just MRQ) — rules out fresh turnarounds whose score
       is driven by a single positive quarter following losses.
   Q2: Operating cash flow positive in the most recent available period — earnings
@@ -16,6 +17,9 @@ Five quality gates (all must pass):
       quality problems and are nearly untradeable.
   Q5: Gross margin trend stable or rising over the last 4 quarters — the
       business is not being 'run into the ground' to chase revenue.
+  Q6: Business model is 'scalable to 100x' — excludes structurally capped
+      businesses (banks, insurance, REITs, utilities) and pure commodity
+      cyclicals where a 100x return over 5-10 years is practically impossible.
 """
 from typing import Optional, Tuple, List
 import yfinance as yf
@@ -24,6 +28,52 @@ import pandas as pd
 MIN_MARKET_CAP_USD = 50_000_000
 MAX_SHARE_GROWTH_YOY = 0.20  # 20%
 MIN_GROSS_MARGIN_QUARTERS = 4
+
+# Yahoo Finance industry strings (case-insensitive substring match) that are
+# structurally incapable of 100x returns. These cover:
+#   - Banks / thrifts: regulatory capital rules cap growth, regional ceiling
+#   - Insurance: float-driven slow growth
+#   - REITs / Real Estate holdings: capped by asset yield, pass-through tax
+#   - Utilities: regulated returns
+#   - Asset/mortgage/credit services: leveraged fee business, not 100x-story
+#   - Pure commodity cyclicals: price-taker, book value driven, no structural
+#     compounder characteristics (oil/gas producers, gold miners, steel,
+#     agricultural inputs)
+EXCLUDED_INDUSTRY_SUBSTRINGS = [
+    # Financial services — structurally capped
+    "banks", "bank —", "bank-",
+    "insurance",
+    "reit", "real estate—", "real estate -",
+    "asset management",
+    "mortgage finance",
+    "thrifts",
+    "credit services",
+    "savings & cooperative banks",
+    # Utilities — regulated returns
+    "utilities—",
+    "utilities -",
+    # Commodity cyclicals — preisnehmend, keine 100x-story
+    "oil & gas e&p",
+    "oil & gas integrated",
+    "oil & gas midstream",
+    "oil & gas refining",
+    "oil & gas drilling",
+    "gold",
+    "silver",
+    "other precious metals",
+    "copper",
+    "aluminum",
+    "steel",
+    "coking coal",
+    "thermal coal",
+    "uranium",
+    "agricultural inputs",  # potash, fertilizers
+    "lumber & wood",
+    "paper & paper products",
+    # Commodity shipping — pure price-taker, no compounder characteristics
+    "marine shipping",
+    "shipping & ports",
+]
 
 
 def _ocf_positive(ticker_obj: yf.Ticker) -> Optional[bool]:
@@ -112,6 +162,22 @@ def _gross_margin_stable_or_rising(ticker_obj: yf.Ticker) -> Optional[bool]:
     return latest >= (avg - 0.05)  # allow 5pp drop from average
 
 
+def _is_scalable_business_model(info: dict) -> Tuple[Optional[bool], str]:
+    """Check if the company's industry is plausible 100x-capable.
+
+    Returns (True, industry) on pass, (False, industry) on structural
+    exclusion, (None, '') if industry data is missing.
+    """
+    industry = (info.get("industry") or "").strip()
+    if not industry:
+        return None, ""
+    lower = industry.lower()
+    for needle in EXCLUDED_INDUSTRY_SUBSTRINGS:
+        if needle in lower:
+            return False, industry
+    return True, industry
+
+
 def quality_pass(row: dict) -> Tuple[bool, List[str]]:
     """Run all 5 quality gates on a scored company row.
 
@@ -132,9 +198,10 @@ def quality_pass(row: dict) -> Tuple[bool, List[str]]:
     if row.get("market_cap_usd", 0) < MIN_MARKET_CAP_USD:
         reasons.append("Q4:market_cap_too_small")
 
-    # For Q2/Q3/Q5 we need live yfinance lookups
+    # For Q2/Q3/Q5/Q6 we need live yfinance lookups
     try:
         t = yf.Ticker(ticker)
+        info = t.info or {}
     except Exception:
         reasons.append("data:ticker_init_failed")
         return (False, reasons)
@@ -159,5 +226,12 @@ def quality_pass(row: dict) -> Tuple[bool, List[str]]:
         reasons.append("data:margin_unknown")
     elif not margin_ok:
         reasons.append("Q5:margin_eroding")
+
+    # Q6: Business model scalable to 100x (not bank/reit/utility/commodity)
+    scalable, industry_name = _is_scalable_business_model(info)
+    if scalable is None:
+        reasons.append("data:industry_unknown")
+    elif not scalable:
+        reasons.append(f"Q6:unscalable_industry[{industry_name}]")
 
     return (len(reasons) == 0, reasons)
