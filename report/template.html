@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>100-Bagger Screener – Quartalsausgabe Q2 2026</title>
+<style>
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #1B2A4A;
+    background: #ffffff;
+    font-size: 10.5pt;
+    line-height: 1.55;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    height: 297mm;
+    padding: 22mm 20mm;
+    page-break-after: always;
+    position: relative;
+    overflow: hidden;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* ===== COVER ===== */
+  .cover {
+    background: repeating-linear-gradient(
+      135deg,
+      #1B2A4A,
+      #1B2A4A 30px,
+      #1F3055 30px,
+      #1F3055 32px
+    );
+    color: #ffffff;
+    padding: 40mm 28mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .cover-brand {
+    font-family: "Arial Black", Arial, sans-serif;
+    font-size: 9pt;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #e6b74d;
+  }
+  .cover-title {
+    font-family: "Arial Black", Arial, sans-serif;
+    font-size: 48pt;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin-top: 18mm;
+  }
+  .cover-subtitle {
+    font-family: Arial, sans-serif;
+    font-size: 14pt;
+    font-weight: 300;
+    margin-top: 8mm;
+    color: #d8dce8;
+    max-width: 120mm;
+    line-height: 1.4;
+  }
+  .cover-issue {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: auto;
+    font-size: 10pt;
+  }
+  .cover-issue .label {
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #8d96b0;
+    font-size: 8.5pt;
+    margin-bottom: 2mm;
+  }
+  .cover-issue .value {
+    font-family: "Arial Black", Arial, sans-serif;
+    font-size: 18pt;
+    color: #ffffff;
+  }
+  .cover-footer {
+    position: absolute;
+    bottom: 14mm;
+    left: 28mm;
+    right: 28mm;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 4mm;
+    font-size: 8pt;
+    color: #a0a8c0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ===== SECTION HEADER (on content pages) ===== */
+  .page-head {
+    border-bottom: 2px solid #1B2A4A;
+    padding-bottom: 4mm;
+    margin-bottom: 6mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .page-head .issue {
+    font-family: "Arial Black", Arial, sans-serif;
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: #1B2A4A;
+  }
+  .page-head .meta {
+    font-size: 8.5pt;
+    color: #8C8C8C;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-family: "Arial Black", Arial, sans-serif;
+    font-size: 24pt;
+    letter-spacing: -0.01em;
+    margin-bottom: 4mm;
+    color: #1B2A4A;
+  }
+  h2 {
+    font-family: "Arial Black", Arial, sans-serif;
+    font-size: 13pt;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 6mm;
+    margin-bottom: 2.5mm;
+    color: #1B2A4A;
+    border-left: 3px solid #e6b74d;
+    padding-left: 3mm;
+  }
+  h3 {
+    font-family: "Arial Black", Arial, sans-serif;
+    font-size: 11pt;
+    margin-top: 4mm;
+    margin-bottom: 1.5mm;
+    color: #1B2A4A;
+  }
+  p { margin-bottom: 2.5mm; text-align: justify; }
+  strong { color: #1B2A4A; }
+
+  /* ===== METHODOLOGY PAGE ===== */
+  .intro-lead {
+    font-size: 12pt;
+    color: #1F3055;
+    line-height: 1.5;
+    margin-bottom: 5mm;
+  }
+  .five-criteria {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4mm;
+    margin-top: 4mm;
+  }
+  .crit {
+    background: #F0F0F0;
+    padding: 4mm 5mm;
+    border-left: 3px solid #1B2A4A;
+  }
+  .crit .num {
+    font-family: "Arial Black", sans-serif;
+    font-size: 22pt;
+    color: #e6b74d;
+    line-height: 1;
+  }
+  .crit .name {
+    font-family: "Arial Black", sans-serif;
+    font-size: 10.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 1.5mm 0 1mm 0;
+  }
+  .crit p {
+    margin: 0;
+    font-size: 9.5pt;
+    color: #4a5170;
+  }
+
+  /* ===== COMPANY PORTRAIT HEADER ===== */
+  .company-hero {
+    background: #1B2A4A;
+    color: #ffffff;
+    padding: 6mm 7mm;
+    margin-bottom: 5mm;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 5mm;
+    align-items: center;
+  }
+  .company-hero .meta-line {
+    font-size: 8.5pt;
+    color: #e6b74d;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 1mm;
+  }
+  .company-hero h1 {
+    color: #ffffff;
+    font-size: 22pt;
+    margin-bottom: 1mm;
+  }
+  .company-hero .ticker {
+    font-family: "Arial Black", sans-serif;
+    font-size: 14pt;
+    color: #d8dce8;
+  }
+  .score-badge {
+    text-align: center;
+    background: #e6b74d;
+    color: #1B2A4A;
+    padding: 4mm 6mm;
+    border-radius: 2mm;
+    min-width: 28mm;
+  }
+  .score-badge .num {
+    font-family: "Arial Black", sans-serif;
+    font-size: 28pt;
+    line-height: 1;
+  }
+  .score-badge .label {
+    font-size: 7.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-top: 1mm;
+  }
+
+  /* ===== FACT BAR ===== */
+  .fact-bar {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 2mm;
+    margin-bottom: 5mm;
+  }
+  .fact {
+    background: #F0F0F0;
+    padding: 3mm 2mm;
+    text-align: center;
+  }
+  .fact .k {
+    font-size: 7.5pt;
+    color: #8C8C8C;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .fact .v {
+    font-family: "Arial Black", sans-serif;
+    font-size: 12pt;
+    color: #1B2A4A;
+    margin-top: 1mm;
+  }
+
+  /* ===== SCORE BREAKDOWN ===== */
+  .score-bars {
+    background: #F8F8F8;
+    padding: 4mm 5mm;
+    margin: 4mm 0;
+  }
+  .score-bars h3 { margin-top: 0; font-size: 10pt; text-transform: uppercase; letter-spacing: 0.1em; }
+  .bar-row {
+    display: grid;
+    grid-template-columns: 45mm 1fr 15mm;
+    gap: 3mm;
+    align-items: center;
+    margin-bottom: 1.5mm;
+    font-size: 9pt;
+  }
+  .bar-row .label { color: #1B2A4A; }
+  .bar-track {
+    background: #e2e4eb;
+    height: 4mm;
+    border-radius: 0.5mm;
+    overflow: hidden;
+  }
+  .bar-fill {
+    background: #1B2A4A;
+    height: 100%;
+  }
+  .bar-row .val {
+    text-align: right;
+    font-family: "Arial Black", sans-serif;
+    color: #1B2A4A;
+    font-size: 9pt;
+  }
+
+  /* ===== RISK LIST ===== */
+  .risk-list {
+    background: #fdf6e7;
+    border-left: 3px solid #e6b74d;
+    padding: 4mm 5mm;
+    margin: 4mm 0;
+  }
+  .risk-list ul { list-style: none; padding: 0; }
+  .risk-list li {
+    padding: 2mm 0 2mm 8mm;
+    border-bottom: 1px dashed #e6cf9a;
+    position: relative;
+  }
+  .risk-list li:last-child { border-bottom: none; }
+  .risk-list li::before {
+    content: "!";
+    position: absolute;
+    left: 0;
+    top: 2mm;
+    width: 5mm;
+    height: 5mm;
+    background: #e6b74d;
+    color: #1B2A4A;
+    font-family: "Arial Black", sans-serif;
+    font-size: 10pt;
+    text-align: center;
+    line-height: 5mm;
+    border-radius: 50%;
+  }
+
+  .verdict {
+    background: #1B2A4A;
+    color: #ffffff;
+    padding: 5mm 6mm;
+    margin-top: 5mm;
+  }
+  .verdict h3 { color: #e6b74d; margin-top: 0; }
+  .verdict p { color: #e0e3ee; }
+
+  /* ===== DISCLAIMER PAGE ===== */
+  .disclaimer {
+    background: #F0F0F0;
+    padding: 8mm 10mm;
+    border-left: 5px solid #1B2A4A;
+    margin-top: 8mm;
+    font-size: 9.5pt;
+    line-height: 1.6;
+  }
+  .disclaimer p { text-align: justify; margin-bottom: 3mm; }
+
+  /* ===== PAGE FOOTER ===== */
+  .page-foot {
+    position: absolute;
+    bottom: 10mm;
+    left: 20mm;
+    right: 20mm;
+    border-top: 1px solid #d4d7e0;
+    padding-top: 2mm;
+    font-size: 8pt;
+    color: #8C8C8C;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .kicker {
+    color: #e6b74d;
+    font-family: "Arial Black", sans-serif;
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 1.5mm;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ========== COVER PAGE ========== -->
+<section class="page cover">
+  <div>
+    <div class="cover-brand">Meine Geldseite · Research</div>
+  </div>
+  <div>
+    <div class="cover-title">100-Bagger<br>Screener</div>
+    <div class="cover-subtitle">Quartalsreport mit den aktuellen Top-Kandidaten für potenzielle Verhundertfacher – systematisch gefiltert nach den fünf Mustern aus der Originalstudie von Tony.</div>
+  </div>
+  <div class="cover-issue">
+    <div>
+      <div class="label">Ausgabe</div>
+      <div class="value">Q2 / 2026</div>
+    </div>
+    <div style="text-align: right;">
+      <div class="label">Stand</div>
+      <div class="value">21. April 2026</div>
+    </div>
+  </div>
+  <div class="cover-footer">
+    <span>PROTOTYP · Nur zur internen Abstimmung</span>
+    <span>thblees.github.io/100bagger</span>
+  </div>
+</section>
+
+<!-- ========== METHODOLOGY PAGE ========== -->
+<section class="page">
+  <div class="page-head">
+    <span class="issue">100-Bagger Screener · Q2 2026</span>
+    <span class="meta">Methodik</span>
+  </div>
+
+  <h1>Wie dieser Report entsteht</h1>
+  <p class="intro-lead">Dieser Report filtert aus allen ~6.850 US-gelisteten Aktien (NASDAQ, NYSE, AMEX) systematisch jene Micro- und Small-Caps heraus, die aktuell das Muster möglicher Verhundertfacher zeigen – so wie es <strong>Tony (tsanalysis.com)</strong> in seiner Analyse vergangener 100-Bagger herausgearbeitet hat.</p>
+
+  <p>Tony hat rund zwanzig historische 100-Bagger (u.&nbsp;a. Monster Beverage, Medifast, NutriSystem, Bally Technologies, Green Mountain Coffee) rückwirkend analysiert und fünf wiederkehrende Muster identifiziert. Kein Unternehmen erfüllt alle Muster gleichzeitig – aber jeder 100-Bagger zeigte mehrere davon gleichzeitig zum richtigen Zeitpunkt.</p>
+
+  <p>Unser Screener übersetzt diese qualitativen Muster in konkrete Zahlen und vergibt pro Titel einen Score von 0 bis 100 Punkten. Die fünf Bausteine:</p>
+
+  <div class="five-criteria">
+    <div class="crit">
+      <div class="num">01</div>
+      <div class="name">EPS-Beschleunigung</div>
+      <p>Max. 35 Punkte. Steigen die yoy-Wachstumsraten der letzten vier Quartale sequentiell an? Dieses Muster ist für Tony der wichtigste Auslöser für PE-Expansion.</p>
+    </div>
+    <div class="crit">
+      <div class="num">02</div>
+      <div class="name">PEG-Ratio</div>
+      <p>Max. 25 Punkte. Steht das KGV im günstigen Verhältnis zum Gewinnwachstum? Ideal sind Werte unter 0,5, akzeptabel unter 1,0.</p>
+    </div>
+    <div class="crit">
+      <div class="num">03</div>
+      <div class="name">Kleine Marktkapitalisierung</div>
+      <p>Max. 15 Punkte. Praktisch alle 100-Bagger der Studie starteten als Micro-Cap unter 500 Mio. USD. Je kleiner die Basis, desto mehr Raum für das 100-fache.</p>
+    </div>
+    <div class="crit">
+      <div class="num">04</div>
+      <div class="name">Umsatzwachstum</div>
+      <p>Max. 15 Punkte. Stützt die Qualität des Gewinnwachstums – verhindert, dass reine Margen-Einmaleffekte täuschen.</p>
+    </div>
+    <div class="crit">
+      <div class="num">05</div>
+      <div class="name">Turnaround-Signal</div>
+      <p>Bonus 10 Punkte. Unternehmen, die aus Verlustphasen in die Profitabilität zurückkehren und dabei beschleunigen – klassisches Tony-Muster.</p>
+    </div>
+    <div class="crit" style="background: #1B2A4A; color: #ffffff; border-left: 3px solid #e6b74d;">
+      <div class="num" style="color: #e6b74d;">Σ</div>
+      <div class="name" style="color: #ffffff;">Hard Filter vorab</div>
+      <p style="color: #d8dce8;">Market Cap &lt; 500 Mio. USD, letztes Quartal profitabel, ≥ 8 Quartale Historie, Handelsvolumen &gt; 100.000 USD/Tag, US-Listing.</p>
+    </div>
+  </div>
+
+  <h2>In dieser Ausgabe</h2>
+  <p>Aus 6.850 untersuchten Titeln passierten 423 den Hard-Filter. In diesem <strong>Prototypen</strong> stellen wir die Top&nbsp;3 vor. Der Vollreport würde die Top 50 abdecken.</p>
+
+  <div class="page-foot">
+    <span>100-Bagger Screener · Q2 2026</span>
+    <span>meine-geldseite.de</span>
+  </div>
+</section>
+
+<!-- ========== COMPANY 1: CUE ========== -->
+<!-- TO_BE_REPLACED_CUE -->
+
+<!-- ========== COMPANY 2: MSGM ========== -->
+<!-- TO_BE_REPLACED_MSGM -->
+
+<!-- ========== COMPANY 3: OBIO ========== -->
+<!-- TO_BE_REPLACED_OBIO -->
+
+<!-- ========== DISCLAIMER PAGE ========== -->
+<section class="page">
+  <div class="page-head">
+    <span class="issue">100-Bagger Screener · Q2 2026</span>
+    <span class="meta">Rechtliches</span>
+  </div>
+
+  <h1>Wichtige Hinweise &amp; Disclaimer</h1>
+
+  <div class="disclaimer">
+    <p><strong>Keine Anlageberatung.</strong> Die in diesem Report vorgestellten Aktien wurden auf Basis eines systematischen, quantitativen Screeners ausgewählt, der historische Muster aus Tony's 100-Bagger-Studie abbildet. Er stellt <strong>keine</strong> individuelle Anlageempfehlung dar. Alle Einschätzungen sind allgemeiner Natur und berücksichtigen weder deine persönliche Situation, deine finanziellen Ziele noch deine Risikotragfähigkeit.</p>
+
+    <p><strong>Hohes Verlustrisiko bei Micro-Caps.</strong> Die hier gezeigten Unternehmen haben Marktkapitalisierungen unter 500 Mio. USD – viele sogar unter 100 Mio. USD. Solche Aktien sind oft dünn gehandelt, stark schwankungsanfällig und können binnen Stunden 30 % oder mehr verlieren. Einzelne Positionen können bis zum Totalverlust führen. Nutze niemals Geld, das du kurzfristig brauchst.</p>
+
+    <p><strong>Datenquellen &amp; Aktualität.</strong> Die Fundamentaldaten stammen aus öffentlichen Quellen (SEC EDGAR, yfinance, Unternehmenspräsentationen) und wurden zum Zeitpunkt der Analyse recherchiert. Die Lage bei Small- und Micro-Caps kann sich täglich ändern – insbesondere bei Biotech-Unternehmen mit laufenden klinischen Studien. Prüfe vor jeder Entscheidung die aktuelle Nachrichtenlage.</p>
+
+    <p><strong>Survivorship Bias.</strong> Tony's Studie basiert auf bereits bekannten 100-Baggern – also auf Gewinnern. Viele Aktien mit ähnlichen Mustern wurden nicht zu 100-Baggern, sondern zu Totalverlusten. Der Screener findet mögliche Kandidaten, keine Gewissheiten. Ein hoher Score bedeutet, dass das Muster heute zum historischen Muster erfolgreicher 100-Bagger passt – nicht mehr und nicht weniger.</p>
+
+    <p><strong>Vergangenheit &amp; Zukunft.</strong> Historische Muster wiederholen sich nicht zwangsläufig. Märkte, Regulierung, Zinsen und Technologien entwickeln sich weiter. Eine Aktie, die Tony's Muster heute erfüllt, kann morgen komplett anders dastehen.</p>
+
+    <p><strong>Empfohlene Eigenrecherche.</strong> Nutze diesen Report als strukturierten Ausgangspunkt. Bevor du investierst, schau dir den letzten 10-K/10-Q-Bericht selbst an, höre dir den letzten Earnings Call an, prüfe Insiderkäufe und lies unabhängige Analystenkommentare. Kein Screener ersetzt dein eigenes Urteil.</p>
+  </div>
+
+  <div class="page-foot">
+    <span>100-Bagger Screener · Q2 2026</span>
+    <span>meine-geldseite.de</span>
+  </div>
+</section>
+
+</body>
+</html>

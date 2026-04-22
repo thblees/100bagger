@@ -10,3 +10,4 @@ pipeline_log.txt
 pipeline/mini_run.py
 *.pptx
 *.pdf
+report/*.pdf

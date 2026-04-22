@@ -40,6 +40,13 @@
         <label class="block text-xs text-slate-600 mb-1">Max. Market Cap (Mio $): <span id="mcap-val">500</span></label>
         <input type="range" id="filter-mcap" min="0" max="500" value="500" class="w-full" />
       </div>
+      <div class="md:col-span-4 flex items-center gap-2 pt-1">
+        <input type="checkbox" id="filter-quality" class="w-4 h-4 accent-emerald-600" />
+        <label for="filter-quality" class="text-sm text-slate-700">
+          <span class="font-semibold">Nur Quality-geprüfte</span>
+          <span class="text-xs text-slate-500">(TTM positiv, OCF positiv, Verwässerung &lt; 20 %, MCap &gt; 50 M, Marge stabil)</span>
+        </label>
+      </div>
     </div>
 
     <div class="overflow-x-auto bg-white rounded-lg shadow">
@@ -47,6 +54,7 @@
         <thead class="bg-slate-100 text-left text-xs uppercase tracking-wider">
           <tr id="header-row">
             <th class="px-3 py-2 cursor-pointer" data-col="rank">#</th>
+            <th class="px-3 py-2" title="Quality-Filter (TTM+ / OCF+ / ≤20% Dilution / MCap≥50M / stable Margin)">Q</th>
             <th class="px-3 py-2 cursor-pointer" data-col="ticker">Ticker</th>
             <th class="px-3 py-2 cursor-pointer" data-col="name">Name</th>
             <th class="px-3 py-2 cursor-pointer" data-col="sector">Sektor</th>
@@ -105,8 +113,14 @@
       rows.forEach((r, idx) => {
         const tr = document.createElement("tr");
         tr.className = "border-t hover:bg-slate-50 cursor-pointer";
+        const qBadge = r.quality_pass === true
+          ? `<span class="inline-block w-5 h-5 bg-emerald-500 text-white text-center font-bold text-xs rounded-full" title="Quality-Filter bestanden">&#10003;</span>`
+          : r.quality_pass === false
+            ? `<span class="inline-block w-5 h-5 bg-amber-400 text-white text-center font-bold text-xs rounded-full" title="${(r.quality_reasons || []).join(', ')}">!</span>`
+            : `<span class="text-slate-400 text-xs">–</span>`;
         tr.innerHTML = `
           <td class="px-3 py-2 text-slate-500">${idx + 1}</td>
+          <td class="px-3 py-2 text-center">${qBadge}</td>
           <td class="px-3 py-2 font-semibold">${r.ticker}</td>
           <td class="px-3 py-2">${r.name}</td>
           <td class="px-3 py-2 text-slate-600">${r.sector}</td>
@@ -209,12 +223,14 @@
       const sector = document.getElementById("filter-sector").value;
       const minScore = parseInt(document.getElementById("filter-score").value, 10);
       const maxMcapMio = parseInt(document.getElementById("filter-mcap").value, 10);
+      const qualityOnly = document.getElementById("filter-quality").checked;
 
       return state.data.top_results.filter((r) => {
         if (search && !r.ticker.toLowerCase().includes(search) && !r.name.toLowerCase().includes(search)) return false;
         if (sector && r.sector !== sector) return false;
         if (r.total_score < minScore) return false;
         if (r.market_cap_usd > maxMcapMio * 1_000_000) return false;
+        if (qualityOnly && r.quality_pass !== true) return false;
         return true;
       });
     }
@@ -247,6 +263,7 @@
       });
     }
 
+    document.getElementById("filter-quality").addEventListener("change", refresh);
     ["filter-search", "filter-sector"].forEach((id) => {
       document.getElementById(id).addEventListener("input", refresh);
     });

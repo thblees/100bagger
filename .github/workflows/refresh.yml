@@ -31,6 +31,9 @@ jobs:
       - name: Run pipeline
         run: python pipeline/run_pipeline.py
 
+      - name: Apply quality overlay filter
+        run: python pipeline/rerank_quality.py
+
       - name: Show pipeline log tail
         if: always()
         run: tail -50 pipeline/pipeline_log.txt || echo "no log"
