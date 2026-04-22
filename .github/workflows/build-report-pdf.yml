@@ -1,0 +1,97 @@
+name: Build Report PDF
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'report/report.html'
+  workflow_dispatch:  # allow manual trigger
+
+jobs:
+  build-pdf:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # required to create releases
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Playwright + Chromium
+        run: |
+          pip install playwright
+          playwright install --with-deps chromium
+
+      - name: Build PDF from report.html
+        run: |
+          mkdir -p build
+          python <<'PY'
+          from playwright.sync_api import sync_playwright
+          from pathlib import Path
+          from datetime import datetime
+
+          html_path = Path("report/report.html").resolve()
+          pdf_path = Path("build/100bagger-report.pdf").resolve()
+
+          with sync_playwright() as p:
+              browser = p.chromium.launch()
+              ctx = browser.new_context()
+              page = ctx.new_page()
+              page.goto(html_path.as_uri(), wait_until="networkidle")
+              page.pdf(
+                  path=str(pdf_path),
+                  format="A4",
+                  print_background=True,
+                  margin={"top": "0", "right": "0", "bottom": "0", "left": "0"},
+              )
+              browser.close()
+          print(f"PDF built: {pdf_path} ({pdf_path.stat().st_size // 1024} KB)")
+          PY
+
+      - name: Create dated release tag
+        id: tag
+        run: |
+          DATE=$(date -u +%Y-%m-%d)
+          MONTH=$(date -u +%m)
+          YEAR=$(date -u +%Y)
+          case "$MONTH" in
+            01|02|03) QUARTER="Q1" ;;
+            04|05|06) QUARTER="Q2" ;;
+            07|08|09) QUARTER="Q3" ;;
+            10|11|12) QUARTER="Q4" ;;
+          esac
+          TAG="report-${QUARTER}-${YEAR}-${DATE}"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "quarter=$QUARTER" >> $GITHUB_OUTPUT
+          echo "year=$YEAR" >> $GITHUB_OUTPUT
+          echo "date=$DATE" >> $GITHUB_OUTPUT
+          cp build/100bagger-report.pdf "build/100bagger-report-${QUARTER}-${YEAR}.pdf"
+
+      - name: Publish GitHub Release with PDF
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: "100-Bagger Report ${{ steps.tag.outputs.quarter }}/${{ steps.tag.outputs.year }}"
+          body: |
+            Automatisch generierter Quartalsreport aus `report/report.html`.
+
+            **Download:** siehe angehängte PDF-Datei unten.
+
+            **Erstellt:** ${{ steps.tag.outputs.date }} (UTC)
+            **Quartal:** ${{ steps.tag.outputs.quarter }} / ${{ steps.tag.outputs.year }}
+
+            Der Report wurde automatisch aus dem 100-Bagger-Screener erzeugt. Die Auswahl der Kandidaten erfolgt über:
+            1. Tony's fünf 100-Bagger-Muster (Score 0-100)
+            2. Quality-Overlay gegen Einmaleffekte
+            3. Business-Model-Kuratierung gegen strukturell nicht-skalierbare Geschäftsmodelle
+            4. Analyst-Fazit-Prüfung auf 100-Bagger-Plausibilität
+          files: |
+            build/100bagger-report-${{ steps.tag.outputs.quarter }}-${{ steps.tag.outputs.year }}.pdf
+          draft: false
+          prerelease: false
